@@ -26,9 +26,9 @@ const StartPage = () => {
       <div className="start-page">
         <p className="continue-text">Continue as a</p>
         <div className="options">
-          <button onClick={() => handleNavigation("hotel")}>Hotel</button>
-          <button onClick={() => handleNavigation("laundry")}>Laundry</button>
-          <button onClick={() => handleNavigation("delivery")}>Delivery</button>
+          <button onClick={() => handleNavigation("Hotel")}>Hotel</button>
+          <button onClick={() => handleNavigation("Laundry")}>Laundry</button>
+          <button onClick={() => handleNavigation("Delivery")}>Delivery</button>
         </div>
       </div>
     </div>

@@ -30,6 +30,7 @@
 
 .logo img {
   width: 300px;
+  height: 100%;
 }
 .slogan {
   margin-top: 200px;
@@ -41,13 +42,14 @@
   font-family: "Poppins-Light";
   font-size: 56px;
   line-height: 1.2;
+  color: #ffffff;
 }
 
 .slogan p {
   margin-top: 10px;
-  font-family: "Poppins-Light";
+  font-family: "Poppins-Medium";
   font-size: 25px;
-  color: #fff;
+  color: #000000;
 }
 
 .continue-text {
