@@ -44,7 +44,7 @@ const RegisterLaundry_OTP = () => {
         }
         return prev - 1; // Decrease the countdown
       });
-    }, 1000); // 1 second intervals
+    }, 1000); // Ensure it runs at 1-second intervals
 
     setTimerId(id); // Save the timer ID
   };
