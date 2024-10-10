@@ -1,54 +1,86 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { API_ENDPOINT } from "../config";
 import "../styles/OTP_Page.css";
 
-const RegisterHotel_OTP = () => {
+const LoginDelivery_OTP = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   // Extract form data from the previous page
   const formData = location.state;
 
-  // State for OTP, error, and countdown timer
+  // State for OTP, error, countdown, and visibility of the resend button
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
-  const [countdown, setCountdown] = useState(120);
-  const [showResend, setShowResend] = useState(false);
-  const timerId = useRef(null); // useRef for timer ID
+  const [countdown, setCountdown] = useState(120); // 120 seconds countdown
+  const [showResend, setShowResend] = useState(false); // Control visibility of the resend button
+  const [timerId, setTimerId] = useState(null); // State to hold the timer ID
 
   useEffect(() => {
-    startCountdown(); // Start countdown when the component mounts
+    // Automatically send OTP on component mount
+    sendOtp();
 
+    // Start the countdown after sending OTP
+    startCountdown();
+
+    // Cleanup the timer on unmount
     return () => {
-      // Cleanup timer on component unmount
-      if (timerId.current) {
-        clearInterval(timerId.current);
-      }
+      if (timerId) clearInterval(timerId);
     };
   }, []); // Run only once on mount
 
+  // Function to start the countdown timer
   const startCountdown = () => {
-    setShowResend(false); // Hide the resend button
-    setCountdown(120); // Reset the countdown
+    setShowResend(false); // Hide the resend button initially
+    setCountdown(120); // Reset countdown
 
-    if (timerId.current) {
-      clearInterval(timerId.current); // Clear any existing timer
+    // Clear any existing timer to avoid multiple timers
+    if (timerId) {
+      clearInterval(timerId);
     }
 
-    timerId.current = setInterval(() => {
-      setCountdown((prevCountdown) => {
-        if (prevCountdown <= 1) {
-          clearInterval(timerId.current); // Stop the timer
-          setShowResend(true); // Show the resend button
-          return 0; // Countdown reaches 0
+    const id = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(id);
+          setShowResend(true); // Show the resend button after countdown ends
+          return 0;
         }
-        return prevCountdown - 1; // Decrease the countdown
+        return prev - 1; // Decrease countdown by 1
       });
     }, 1000); // 1 second intervals
+
+    setTimerId(id); // Save the timer ID
   };
 
+  // Function to send OTP (used for both auto-send and resend)
+  const sendOtp = async () => {
+    try {
+      const response = await fetch(API_ENDPOINT.SEND_OTP, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: formData.email }),
+      });
+
+      const result = await response.json();
+      if (response.status === 200) {
+        console.log("OTP sent successfully!");
+        setError(""); // Clear any previous error messages
+      } else {
+        console.error("Failed to send OTP:", result.error);
+        setError("Failed to send OTP, please try again.");
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+      setError("An error occurred while sending the OTP.");
+    }
+  };
+
+  // Function to verify OTP
   const verifyOtp = async (otp) => {
     try {
       const response = await fetch(API_ENDPOINT.VERIFY_OTP, {
@@ -63,6 +95,9 @@ const RegisterHotel_OTP = () => {
       if (response.status === 200) {
         console.log("OTP verified successfully!");
         return true;
+      } else if (response.status === 400) {
+        setError("Incorrect OTP !");
+        return false;
       } else {
         setError(result.error || "Failed to verify OTP");
         return false;
@@ -74,30 +109,7 @@ const RegisterHotel_OTP = () => {
     }
   };
 
-  const handleResendOtp = async () => {
-    try {
-      const response = await fetch(API_ENDPOINT.SEND_OTP, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: formData.email }),
-      });
-
-      const result = await response.json();
-      if (response.status === 200) {
-        console.log("OTP resent successfully!");
-        setError(""); // Clear error
-        startCountdown(); // Restart countdown
-      } else {
-        setError(result.error || "Failed to resend OTP");
-      }
-    } catch (error) {
-      console.error("Error resending OTP:", error);
-      setError("An error occurred while resending OTP.");
-    }
-  };
-
+  // Function to handle form submission and verify OTP
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -108,26 +120,7 @@ const RegisterHotel_OTP = () => {
 
     const otpVerified = await verifyOtp(otp);
     if (otpVerified) {
-      try {
-        const response = await fetch(API_ENDPOINT.REGISTER_HOTEL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          navigate("/Hotel/dashboard");
-          console.log("Register successfully!");
-        } else {
-          setError(data.message || "Registration failed, please try again.");
-        }
-      } catch (error) {
-        setError("An error occurred during registration.");
-      }
+      navigate("/Hotel/dashboard");
     }
   };
 
@@ -163,7 +156,7 @@ const RegisterHotel_OTP = () => {
                       <input
                         type="button"
                         value="Resend OTP"
-                        onClick={handleResendOtp}
+                        onClick={sendOtp} // Use sendOtp for resending OTP
                       />
                     </div>
                   )
@@ -187,4 +180,4 @@ const RegisterHotel_OTP = () => {
   );
 };
 
-export default RegisterHotel_OTP;
+export default LoginDelivery_OTP;

@@ -26,6 +26,7 @@ h4 {
 }
 
 .resend-otp input{
+    cursor: pointer;
     color: #005b96;
     border: none;
     background-color: transparent;
