@@ -1,0 +1,34 @@
+@font-face {
+  font-family: "Poppins-Medium";
+  src: url("../assets/fonts/Poppins-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-Light";
+  src: url("../assets/fonts/Poppins-Light.ttf") format("truetype");
+}
+
+h4 {
+  font-family: "Poppins-Light";
+  margin-top: 0;
+}
+
+.resend-countdown {
+  font-family: "Poppins-Light";
+  font-size: 14px;
+  text-align: end;
+  margin: 0;
+}
+
+.resend-otp {
+    text-align: end;
+    
+}
+
+.resend-otp input{
+    color: #005b96;
+    border: none;
+    background-color: transparent;
+    font-family: "Poppins-Medium";
+}
+
