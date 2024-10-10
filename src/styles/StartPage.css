@@ -109,4 +109,7 @@ button:hover {
     margin-top: 120px;
     margin-left: 0;
   }
+  .logo img {
+    width: 200px;
+  }
 }

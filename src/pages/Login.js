@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./Login.css";
+import "../styles/Login.css";
 import logo from "../assets/images/logo.png";
 import { API_ENDPOINT } from "../config";
 
 const Login = () => {
-  const { role } = useParams(); // Get the role from the URL parameters
+  const { role } = useParams();
   const navigate = useNavigate();
 
   // State for email and password
@@ -63,6 +63,10 @@ const Login = () => {
     }
   };
 
+  const handleNavigation = (role) => {
+    navigate(`/register/${role}`);
+  };
+
   return (
     <div>
       <div className="logo">
@@ -112,7 +116,9 @@ const Login = () => {
               {/* Signup Link */}
               <div className="links">
                 <p>Don't have an account?</p>
-                <a href="#">Sign up here</a>
+                <div className="options">                 
+                </div>
+                <a href="" onClick={() => handleNavigation(role)}>Register here </a>
               </div>
             </form>
           </div>

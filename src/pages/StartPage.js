@@ -1,13 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./StartPage.css";
+import "../styles/StartPage.css";
 import logo from "../assets/images/logo.png";
 
 const StartPage = () => {
   const navigate = useNavigate();
 
   const handleNavigation = (role) => {
-    // Navigate to login page or respective dashboard based on role
     navigate(`/login/${role}`);
   };
 
