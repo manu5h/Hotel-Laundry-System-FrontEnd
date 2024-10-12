@@ -4,9 +4,12 @@ import logo from "../assets/images/logo.png";
 import { API_ENDPOINT } from "../config";
 import "../styles/OTP_Page.css";
 
-const RegisterHotel_OTP = () => {
+const ResetPassword_OTP = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [newPassword, setnewPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   // Extract form data from the previous page
   const formData = location.state;
@@ -101,6 +104,20 @@ const RegisterHotel_OTP = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Clear previous error
+    setError("");
+
+    // Password validation
+    if (newPassword.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+
+    if (newPassword !== passwordConfirm) {
+      setError("Passwords do not match!");
+      return;
+    }
+
     if (otp.length !== 6) {
       setError("OTP must be exactly 6 digits.");
       return;
@@ -108,26 +125,37 @@ const RegisterHotel_OTP = () => {
 
     const otpVerified = await verifyOtp(otp);
     if (otpVerified) {
+      // Set the API URL dynamically based on the role
+      let apiUrl = "";
+
+      if (formData.role === "Hotel") {
+        apiUrl = API_ENDPOINT.RESET_PASSWORD_HOTEL;
+      } else if (formData.role === "Laundry") {
+        apiUrl = API_ENDPOINT.RESET_PASSWORD_LAUNDRY;
+      }
+
       try {
-        const response = await fetch(API_ENDPOINT.REGISTER_HOTEL, {
-          method: "POST",
+        const response = await fetch(apiUrl, {
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({
+            email: formData.email,
+            newPassword: newPassword,
+          }),
         });
-
         const data = await response.json();
 
         if (response.ok) {
-          alert("Hotel register succesfully! Login back!")
-          navigate(`/login/hotel`);
-          console.log("Register successfully!");
+          alert("Password reset Successfully! Login now!");
+          navigate(`/login/${formData.role}`);
+          console.log("Password reset successfully!");
         } else {
-          setError(data.message || "Registration failed, please try again.");
+          setError(data.message || "Password reset failed, please try again.");
         }
       } catch (error) {
-        setError("An error occurred during registration.");
+        setError("An error occurred during reset password.");
       }
     }
   };
@@ -140,13 +168,12 @@ const RegisterHotel_OTP = () => {
       <section>
         <div className="signin">
           <div className="content">
-            <h4>Enter the OTP sent to your email.</h4>
             <form onSubmit={handleSubmit} className="form">
               <div className="inputBox">
                 <input
                   type="text"
                   required
-                  placeholder="Enter OTP"
+                  placeholder="Enter the OTP sent to your email."
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                 />
@@ -169,10 +196,31 @@ const RegisterHotel_OTP = () => {
                     </div>
                   )
                 )}
+
+                {/* Password inputs */}
+                <div className="inputBox">
+                  <input
+                    type="password"
+                    required
+                    placeholder="Password (must be at least 8 characters)"
+                    value={newPassword}
+                    onChange={(e) => setnewPassword(e.target.value)}
+                  />
+                </div>
+
+                <div className="inputBox">
+                  <input
+                    type="password"
+                    required
+                    placeholder="Confirm Password"
+                    value={passwordConfirm}
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                  />
+                </div>
               </div>
 
               <div className="inputBox">
-                <input type="submit" value="Register" />
+                <input type="submit" value="Reset Password" />
               </div>
 
               {error && (
@@ -188,4 +236,4 @@ const RegisterHotel_OTP = () => {
   );
 };
 
-export default RegisterHotel_OTP;
+export default ResetPassword_OTP;

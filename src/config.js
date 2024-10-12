@@ -7,6 +7,8 @@ const API_ENDPOINT = {
   LOGIN_LAUNDRY: `${API_BASE_URL}/auth/login/laundry`,
   LOGIN_DELIVERY: `${API_BASE_URL}/auth/login/deliveryRider`,
 
+  CHECK_EMAIL : `${API_BASE_URL}/auth/check-email`,
+
   //Registers
   REGISTER_HOTEL: `${API_BASE_URL}/auth/register/hotel`,
   REGISTER_LAUNDRY: `${API_BASE_URL}/auth/register/laundry`,
@@ -15,6 +17,10 @@ const API_ENDPOINT = {
   //OTP
   SEND_OTP: `${API_BASE_URL}/auth/send-otp`,
   VERIFY_OTP: `${API_BASE_URL}/auth/verify-otp`,
+
+  //passwords
+  RESET_PASSWORD_HOTEL: `${API_BASE_URL}/auth/resetPassword/hotel`,
+  RESET_PASSWORD_LAUNDRY: `${API_BASE_URL}/auth/resetPassword/laundry`
 };
 
 export { API_BASE_URL, API_ENDPOINT };

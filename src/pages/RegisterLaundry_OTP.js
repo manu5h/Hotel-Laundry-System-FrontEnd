@@ -67,7 +67,7 @@ const RegisterLaundry_OTP = () => {
       } else if (response.status === 400) {
         setError("Incorrect OTP !");
       } else {
-        setError(result.error || "Failed to verify OTP");
+        setError(result.error || "Incorrect OTP");
         return false;
       }
     } catch (error) {
@@ -123,8 +123,8 @@ const RegisterLaundry_OTP = () => {
         const data = await response.json();
 
         if (response.ok) {
-          navigate("/Hotel/dashboard");
-          console.log("Register successfully!");
+          alert("Laundry register succesfully! Login back!");
+          navigate(`/login/laundry`);
         } else {
           setError(data.message || "Registration failed, please try again.");
         }
