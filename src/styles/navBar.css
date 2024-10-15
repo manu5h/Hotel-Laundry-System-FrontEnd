@@ -34,8 +34,8 @@
   width: 100px; /* Adjust size of your main logo */
 }
 
-@media (max-width: 500px) {
-  .signin {
-    width: 80%;
+@media (max-width: 700px) {
+  .nav-links p {
+    font-size: 16px;
   }
 }

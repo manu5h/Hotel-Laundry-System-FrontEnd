@@ -33,7 +33,7 @@
 
 .main-buttons img {
   margin: 0 40px;
-  width: 18%;
+  width: 300px;
   cursor: pointer;
 }
 
@@ -54,4 +54,13 @@
   content: url("../assets/images/CreateOrderHover.png"); /* Path to hover image for Create Order */
   transform: scale(1.05); /* Slight zoom effect */
   opacity: 0.9; /* Slight transparency for effect */
+}
+@media (max-width: 700px) {
+  .hotel-dashboard h3 {
+    font-size: 16px;
+  }
+  .main-buttons img {
+    width: 30%;
+    margin: 0 20px;
+  }
 }

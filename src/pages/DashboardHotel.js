@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/navBar.css";
+import Navbar from "../components/NavBar";
 import SwitchContainer from "../components/SwitchContainer";
 import "../styles/Hotel_Dashboard.css";
 import BasketButton from "../assets/images/AddToBasket.png";

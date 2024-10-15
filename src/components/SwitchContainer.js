@@ -4,7 +4,7 @@ import styled from "styled-components";
 // Styled components for the switch
 
 const SwitchContainer = styled.div`
-  width: 14%;
+  width: 235px;
   height: 65px;
   background-color: #fff;
   border-radius: 60px;
@@ -13,21 +13,21 @@ const SwitchContainer = styled.div`
   justify-content: ${(props) => (props.isOn ? "flex-end" : "flex-start")};
   cursor: pointer;
   position: relative;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px rgb(255 255 255);;
 `;
 
 const ToggleButton = styled.div`
-  width: 50%;
-  height: 90%;
-  background-color: ${(props) => (props.isOn ? "#C62E2E" : "#FF9800")};
+  width: 110px;
+  height: 57px;
+  background-color: ${(props) => (props.isOn ? "#06D001" : "#FF9800")};
   border-radius: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${(props) => (props.isOn ? "#fff" : "#fff")};
+  color: #fff;
   font-weight: bold;
   position: absolute;
-  left: ${(props) => (props.isOn ? "47.5%" : "2.5%")};
+  left: ${(props) => (props.isOn ? "50.5%" : "2.5%")};
   transition: 0.3s ease;
   z-index: 2; /* Ensure button is above text */
 `;
@@ -43,6 +43,12 @@ const Label = styled.div`
   height: 100%;
 `;
 
+const Content = styled.div`
+  margin-top: 20px;
+  text-align: center;
+  font-size: 20px;
+`;
+
 const IOSSwitch = () => {
   const [isOn, setIsOn] = useState(false);
 
@@ -51,14 +57,33 @@ const IOSSwitch = () => {
   };
 
   return (
-    <div className="switch-btn" style={{display: "flex", justifyContent: "center", margin: "60px"}}>
-      <SwitchContainer isOn={isOn} onClick={handleToggle}>
-        <Label>
-          <span style={{ color: "#C62E2E" }}>Ongoing</span>
-          <span style={{ color: "#FF9800" }}>History</span>
-        </Label>
-        <ToggleButton isOn={isOn}>{isOn ? "History" : "Ongoing"}</ToggleButton>
-      </SwitchContainer>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div className="switch-btn" style={{ display: "flex", justifyContent: "center", margin: "60px" }}>
+        <SwitchContainer isOn={isOn} onClick={handleToggle}>
+          <Label>
+            <span style={{ color: "#06D001" }}>Ongoing</span>
+            <span style={{ color: "#FF9800" }}>Completed</span>
+          </Label>
+          <ToggleButton isOn={isOn}>{isOn ? "Completed" : "Ongoing"}</ToggleButton>
+        </SwitchContainer>
+      </div>
+      
+      {/* Conditionally Render Content Based on isOn */}
+      <Content>
+        {isOn ? (
+          <div>
+            <h2>Completed</h2>
+            <p>Here is the list of your completed orders.</p>
+            {/* Add more content or components related to Completed */}
+          </div>
+        ) : (
+          <div>
+            <h2>Ongoing Orders</h2>
+            <p>Here is the list of your ongoing orders.</p>
+            {/* Add more content or components related to Ongoing Orders */}
+          </div>
+        )}
+      </Content>
     </div>
   );
 };

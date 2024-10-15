@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
-import "../components/navBar.css";
+import "../styles/navBar.css";
 
 const NavBar = ({ role }) => {
   const navigate = useNavigate();
