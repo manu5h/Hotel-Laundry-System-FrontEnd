@@ -15,6 +15,9 @@ const API_ENDPOINT = {
   //OTP
   SEND_OTP: `${API_BASE_URL}/auth/send-otp`,
   VERIFY_OTP: `${API_BASE_URL}/auth/verify-otp`,
+
+  //get details
+  GET_Hotel_details: `${API_BASE_URL}/hotel/:hotel_id/details`
 };
 
 export { API_BASE_URL, API_ENDPOINT };

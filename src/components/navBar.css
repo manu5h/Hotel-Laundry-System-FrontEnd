@@ -1,0 +1,41 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #025a97;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-links p {
+  margin: 0 30px;
+  font-size: 22px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.nav-links p:hover {
+  font-weight: bold;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.app-logo {
+  width: 100px; /* Adjust size of your main logo */
+}
+
+@media (max-width: 500px) {
+  .signin {
+    width: 80%;
+  }
+}
