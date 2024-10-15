@@ -51,8 +51,14 @@ const Login = () => {
       if (response.ok) {
         // If login is successful, store the token and navigate to the respective dashboard
         localStorage.setItem("token", data.token);
-        navigate(`/${role}/dashboard`);
-        console.log("login succesfuly");
+        localStorage.setItem("userRole", role);
+        localStorage.setItem("userID", data.result.id);
+
+        navigate(`/${role}/dashboard`, {
+          replace: true,
+        });
+
+        console.log("login successful");
       } else {
         // If login fails, show an error message
         setError(data.message || "Login failed, please try again.");
@@ -116,9 +122,10 @@ const Login = () => {
               {/* Signup Link */}
               <div className="links">
                 <p>Don't have an account?</p>
-                <div className="options">                 
-                </div>
-                <a href="" onClick={() => handleNavigation(role)}>Register here </a>
+                <div className="options"></div>
+                <a href="" onClick={() => handleNavigation(role)}>
+                  Register here{" "}
+                </a>
               </div>
             </form>
           </div>

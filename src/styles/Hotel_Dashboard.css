@@ -1,0 +1,66 @@
+@font-face {
+  font-family: "Poppins-Medium";
+  src: url("../assets/fonts/Poppins-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-Light";
+  src: url("../assets/fonts/Poppins-Light.ttf") format("truetype");
+}
+
+.hotel-dashboard {
+  background: linear-gradient(
+    to bottom,
+    #000,
+    #025a97
+  ); /* From top to bottom gradient */
+  height: 100vh;
+}
+
+.hotel-dashboard h3 {
+  font-family: "Poppins-Light";
+  color: #fff;
+  font-size: 24px;
+  margin: 10px 0 0 20px;
+  color: #fff;
+}
+
+.main-buttons {
+  margin: 30px 0 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+.main-buttons img {
+  margin: 0 40px;
+  width: 300px;
+  cursor: pointer;
+}
+
+.Basket-btn,
+.Order-btn {
+  transition: transform 3.5s ease, opacity 3.5s ease;
+}
+
+.Basket-btn:hover {
+  content: url("../assets/images/AddToBasketHover.png");
+}
+
+.Order-btn:hover {
+  content: url("../assets/images/CreateOrderHover.png");
+}
+
+.order-button:hover {
+  content: url("../assets/images/CreateOrderHover.png"); /* Path to hover image for Create Order */
+  transform: scale(1.05); /* Slight zoom effect */
+  opacity: 0.9; /* Slight transparency for effect */
+}
+@media (max-width: 700px) {
+  .hotel-dashboard h3 {
+    font-size: 16px;
+  }
+  .main-buttons img {
+    width: 30%;
+    margin: 0 20px;
+  }
+}
