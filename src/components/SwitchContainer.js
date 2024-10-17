@@ -19,7 +19,7 @@ const SwitchContainer = styled.div`
 const ToggleButton = styled.div`
   width: 110px;
   height: 57px;
-  background-color: ${(props) => (props.isOn ? "#06D001" : "#FF9800")};
+  background-color: ${(props) => (props.isOn ? "#5fa051" : "#DD8A6C")};
   border-radius: 60px;
   display: flex;
   align-items: center;
@@ -61,8 +61,8 @@ const IOSSwitch = () => {
       <div className="switch-btn" style={{ display: "flex", justifyContent: "center", margin: "60px" }}>
         <SwitchContainer isOn={isOn} onClick={handleToggle}>
           <Label>
-            <span style={{ color: "#06D001" }}>Ongoing</span>
-            <span style={{ color: "#FF9800" }}>Completed</span>
+            <span style={{ color: "#5fa051" }}>Ongoing</span>
+            <span style={{ color: "#DD8A6C" }}>Completed</span>
           </Label>
           <ToggleButton isOn={isOn}>{isOn ? "Completed" : "Ongoing"}</ToggleButton>
         </SwitchContainer>

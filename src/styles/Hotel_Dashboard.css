@@ -9,58 +9,68 @@
 }
 
 .hotel-dashboard {
-  background: linear-gradient(
-    to bottom,
-    #000,
-    #025a97
-  ); /* From top to bottom gradient */
+  background-image: url("../assets/images//Hotel-dashboard-background.png");
+  background-size: cover;
+  background-position: center;
   height: 100vh;
 }
 
-.hotel-dashboard h3 {
-  font-family: "Poppins-Light";
-  color: #fff;
-  font-size: 24px;
-  margin: 10px 0 0 20px;
-  color: #fff;
-}
-
-.main-buttons {
-  margin: 30px 0 0 0;
+.dashboard-logo {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  padding: 10px 0 0 10px;
+  width: 99%;
+  justify-content: space-between;
 }
 
-.main-buttons img {
-  margin: 0 40px;
+.dashboard-logo img {
   width: 300px;
-  cursor: pointer;
+  height: 100%;
 }
 
-.Basket-btn,
-.Order-btn {
-  transition: transform 3.5s ease, opacity 3.5s ease;
+.dashboard-logo button {
+  margin-right: 10px;
+  box-shadow: 0 0 5px rgb(2 74 165);
+  width: 120px;
+  border-radius: 30px;
 }
 
-.Basket-btn:hover {
-  content: url("../assets/images/AddToBasketHover.png");
+.dashboard-icons-firstRow {
+  margin: 50px 0 0 30px;
 }
 
-.Order-btn:hover {
-  content: url("../assets/images/CreateOrderHover.png");
+.dashboard-icons-firstRow img {
+  width: 270px;
+  margin: 0 62px;
 }
 
-.order-button:hover {
-  content: url("../assets/images/CreateOrderHover.png"); /* Path to hover image for Create Order */
-  transform: scale(1.05); /* Slight zoom effect */
-  opacity: 0.9; /* Slight transparency for effect */
+.dashboard-icons-secondRow {
+  margin: 50px 0 0 70px;
 }
-@media (max-width: 700px) {
-  .hotel-dashboard h3 {
-    font-size: 16px;
+
+.dashboard-icons-secondRow img {
+  margin: 0 20px;
+}
+
+@media (max-width: 550px) {
+  .hotel-dashboard {
+    background-position: left;
+    overflow-y: auto; 
+    max-height: 100vh; 
   }
-  .main-buttons img {
-    width: 30%;
-    margin: 0 20px;
+
+  .dashboard-logo img {
+    width: 200px;
+  }
+
+  .dashboard-icons-secondRow {
+    display: grid;
+    margin: 10px 0 0 0;
+    justify-content: center;
+  }
+  .dashboard-icons-firstRow {
+    justify-content: center;
+    display: grid;
+    margin-top: 5%;
   }
 }

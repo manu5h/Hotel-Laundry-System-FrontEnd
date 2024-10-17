@@ -10,6 +10,7 @@ import RegisterHotel_OTP from './pages/RegisterHotel_OTP';
 import RegisterLaundry_OTP from './pages/RegisterLaundry_OTP';
 import HotelDashboard from './pages/DashboardHotel';
 import ProtectedRoute from './components/ProtectedRoute';
+import Settings from './pages/Settings';
 
 function App() {
   // Function to get user role from localStorage
@@ -43,6 +44,8 @@ function App() {
         {/* Protected Route for HotelDashboard */}
         <Route element={<ProtectedRoute />}>
           <Route path="/:role/dashboard" element={<HotelDashboard />} />
+          <Route path="/:role/Settings" element={<Settings />} />
+          <Route path="/:role/Settings" element={<Settings />} />
         </Route>
       </Routes>
     </Router>
