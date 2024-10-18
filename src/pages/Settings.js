@@ -5,6 +5,7 @@ import { API_ENDPOINT } from "../config";
 import "../styles/Settings.css";
 import { IoIosArrowDown } from "react-icons/io";
 import { AiFillRest } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const id = localStorage.getItem("userID");
@@ -17,6 +18,8 @@ const Settings = () => {
     useState(false);
   const [showDeleteProfileDropdown, setShowDeleteProfileDropdown] =
     useState(false);
+
+  const navigate = useNavigate();
 
   // State for tracking editability of each input field
   const [isEditing, setIsEditing] = useState({
@@ -47,6 +50,8 @@ const Settings = () => {
 
   const [currentPassword, setcurrentPassword] = useState("");
   const [newPassword, setnewPassword] = useState("");
+
+  const [Password, setpassword] = useState("");
 
   // Function to fetch details based on role
   const fetchDetails = async () => {
@@ -270,6 +275,84 @@ const Settings = () => {
       }
     } catch (error) {
       console.error("Error updating profile:", error);
+    }
+  };
+
+  // delete profile submit
+  const deleteProfileSubmit = async () => {
+    let url;
+    let body = {};
+
+    const inputs = [{ value: Password, field: "Password" }];
+
+    for (const input of inputs) {
+      if (!input.value) {
+        alert(`${input.field} cannot be empty.`);
+        return;
+      }
+    }
+
+    // Set URL and body based on the role
+    if (role === "Hotel") {
+      url = API_ENDPOINT.DELETE_hotel;
+      body = {
+        email,
+        Password,
+      };
+    } else if (role === "Laundry") {
+      url = API_ENDPOINT.DELETE_laundry;
+      body = {
+        email,
+        Password,
+      };
+    }
+
+    try {
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (response.status === 401) {
+        alert("Current password is incorrect!");
+        throw new Error(`HTTP error! status: ${response.status}`);
+      } else if (!response.ok) {
+        alert("Account deletion failed. Try again later!");
+        console.log(email, currentPassword);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      } else {
+        console.log("Profile deleted successfully!");
+        alert("Profile deleted successfully!");
+
+        // Clear localStorage and session storage
+        localStorage.clear(); // Clear localStorage
+        sessionStorage.clear(); // Optional: Clear sessionStorage if used
+
+        // Navigate to the root page
+        //const navigate = useNavigate();
+        navigate("/", { replace: true }); // Use replace to avoid going back to this page
+      }
+    } catch (error) {
+      console.error("Error deleting profile:", error);
+    }
+  };
+
+  // Function to logout
+  const LogOut = async () => {
+  
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+
+    if (confirmLogout) {
+      // Clear all stored tokens and local storage
+      localStorage.removeItem("token");
+      localStorage.removeItem("userRole");
+      sessionStorage.clear();
+
+      // Navigate to the StartPage
+      navigate("/", { replace: true });
     }
   };
 
@@ -646,7 +729,38 @@ const Settings = () => {
             className={showDeleteProfileDropdown ? "rotate-arrow" : ""}
           />
         </p>
+        {showDeleteProfileDropdown && (
+          <div className="settings-dropdown-menu">
+            <ul>
+              <>
+                <li>
+                  <div className="inputBox-settings">
+                    <p className="Field-name">Password</p>
+                    <input
+                      type="text"
+                      placeholder="Enter Password"
+                      value={Password}
+                      onChange={(e) => setpassword(e.target.value)}
+                    />
+                  </div>
+                </li>
+              </>
+            </ul>
+
+            <div className="save-and-discard">
+              <button onClick={discardChanges} className="save-button">
+                Discard
+              </button>
+              <button onClick={deleteProfileSubmit} className="save-button">
+                Delete
+              </button>
+            </div>
+          </div>
+        )}
       </div>
+      <button onClick={LogOut} className="save-button">
+        Log out
+      </button>
     </div>
   );
 };

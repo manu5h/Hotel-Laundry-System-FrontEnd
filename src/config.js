@@ -29,6 +29,10 @@ const API_ENDPOINT = {
   //Change password
   UPDATE_Password_hotel: `${API_BASE_URL}/auth/changePassword/hotel`,
   UPDATE_Password_laundry: `${API_BASE_URL}/auth/changePassword/laundry`,
+
+  //delete account
+  DELETE_hotel: `${API_BASE_URL}/auth/delete/hotel`,
+  DELETE_laundry: `${API_BASE_URL}/auth/delete/laundry`,
 };
 
 export { API_BASE_URL, API_ENDPOINT };

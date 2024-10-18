@@ -119,9 +119,10 @@ const RegisterHotel_OTP = () => {
 
         const data = await response.json();
 
-        if (response.ok) {
-          navigate("/Hotel/dashboard");
+        if (response.ok) {          
           console.log("Register successfully!");
+          alert("Register successfully! Login back now !")
+          navigate("/login/Hotel");
         } else {
           setError(data.message || "Registration failed, please try again.");
         }

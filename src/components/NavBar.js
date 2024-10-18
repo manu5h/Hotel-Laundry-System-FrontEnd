@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import "../styles/navBar.css";
 
-const NavBar = ({ role }) => {
+
+ 
+const NavBar = () => {
   const navigate = useNavigate();
+  const role = localStorage.getItem("userRole");
 
   // Determine the navigation path based on the role
   const goToHome = () => {
@@ -18,7 +21,6 @@ const NavBar = ({ role }) => {
       navigate("/home", { replace: true }); 
     }
   };
-
   return (
     <nav className="navbar">
       <div className="logo">
