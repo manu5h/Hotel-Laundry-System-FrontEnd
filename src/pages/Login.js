@@ -32,8 +32,6 @@ const Login = () => {
       apiUrl = API_ENDPOINT.LOGIN_HOTEL;
     } else if (role === "Laundry") {
       apiUrl = API_ENDPOINT.LOGIN_LAUNDRY;
-    } else if (role === "Delivery") {
-      apiUrl = API_ENDPOINT.LOGIN_DELIVERY;
     }
 
     try {

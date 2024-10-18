@@ -123,8 +123,9 @@ const RegisterLaundry_OTP = () => {
         const data = await response.json();
 
         if (response.ok) {
-          navigate("/Hotel/dashboard");
           console.log("Register successfully!");
+          alert("Register successfully! Login back now !")
+          navigate("/login/Laundry");
         } else {
           setError(data.message || "Registration failed, please try again.");
         }

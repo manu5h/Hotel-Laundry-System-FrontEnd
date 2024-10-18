@@ -31,11 +31,14 @@
 }
 
 .app-logo {
-  width: 100px; /* Adjust size of your main logo */
+  width: 100px;
 }
 
 @media (max-width: 700px) {
   .nav-links p {
-    font-size: 16px;
+    font-size: 100%;
   }
+  .logo img {
+    width: 40%;
+}
 }

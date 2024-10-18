@@ -17,7 +17,22 @@ const API_ENDPOINT = {
   VERIFY_OTP: `${API_BASE_URL}/auth/verify-otp`,
 
   //get details
-  GET_Hotel_details: `${API_BASE_URL}/hotel/:hotel_id/details`
+  GET_Hotel_details: `${API_BASE_URL}/hotel/:hotel_id/details`,
+  GET_Laundry_details: `${API_BASE_URL}/laundry/:laundry_id/details`,
+  GET_Laundry_details: `${API_BASE_URL}/rider/:rider_id/details`,
+
+  //update profils
+  UPDATE_HOTEL: `${API_BASE_URL}/auth/update/hotel`,
+  UPDATE_LAUNDRY: `${API_BASE_URL}/auth/update/laundry`,
+  UPDATE_DELIVERY: `${API_BASE_URL}/auth/update/deliveryRider`,
+
+  //Change password
+  UPDATE_Password_hotel: `${API_BASE_URL}/auth/changePassword/hotel`,
+  UPDATE_Password_laundry: `${API_BASE_URL}/auth/changePassword/laundry`,
+
+  //delete account
+  DELETE_hotel: `${API_BASE_URL}/auth/delete/hotel`,
+  DELETE_laundry: `${API_BASE_URL}/auth/delete/laundry`,
 };
 
 export { API_BASE_URL, API_ENDPOINT };

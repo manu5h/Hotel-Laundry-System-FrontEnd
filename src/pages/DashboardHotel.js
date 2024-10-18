@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../components/NavBar";
-import SwitchContainer from "../components/SwitchContainer";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import "../styles/Hotel_Dashboard.css";
-import BasketButton from "../assets/images/AddToBasket.png";
-import OrderButton from "../assets/images/CreateOrder.png";
 import { API_ENDPOINT } from "../config";
+import logo from "../assets/images/logo.png";
+import AddToBasket from "../assets/images/AddToBasket.png";
+import box1 from "../assets/images/box1.png";
+import CreateOrder from "../assets/images/CreateOrder.png";
 
 const HotelDashboard = () => {
+  const { role } = useParams();
   const navigate = useNavigate();
   const [hotelDetails, setHotelDetails] = useState(null); // To store hotel details
   const [error, setError] = useState(""); // To store any errors
@@ -18,11 +19,7 @@ const HotelDashboard = () => {
         const storedToken = localStorage.getItem("token");
         const hotelId = localStorage.getItem("userID");
 
-        console.log("hotelid "+hotelId);
-        console.log("token "+storedToken);
-        console.log("local "+localStorage);
-
-        // If no token is found, redirect to the login page
+        // Check if token is not present
         if (!storedToken) {
           navigate("/login/Hotel", { replace: true });
           return;
@@ -32,59 +29,77 @@ const HotelDashboard = () => {
         const response = await fetch(
           API_ENDPOINT.GET_Hotel_details.replace(":hotel_id", hotelId),
           {
-            method: "GET", // Use GET method for fetching details
+            method: "GET",
             headers: {
-              Authorization: `Bearer ${storedToken}`, // Pass the token in headers if needed
+              Authorization: `Bearer ${storedToken}`,
               "Content-Type": "application/json",
             },
           }
         );
 
+        // Handle response based on status code
         if (response.ok) {
           const result = await response.json();
-          setHotelDetails(result); // Store the hotel details in state
-          setError(""); // Clear any previous errors
+          setHotelDetails(result); // Store hotel details
+          setError(""); // Clear errors
+        } else if (response.status === 403 || response.status === 401) {
+          // If the token is invalid or expired, redirect to login
+          console.error("Token is invalid or expired.");
+          localStorage.removeItem("token"); // Optionally clear the token
+          navigate("/login/Hotel", { replace: true });
         } else {
           const errorResult = await response.json();
-          setError(errorResult.error || "Failed to fetch hotel details");
+          setError(errorResult.error || "Failed to fetch hotel details.");
         }
       } catch (error) {
         console.error("Error fetching hotel details:", error);
         setError("An error occurred while fetching hotel details.");
+        navigate("/login/Hotel", { replace: true }); // Redirect to login if an error occurs
       }
     };
 
-    fetchHotelDetails(); // Call the function to fetch details on component load
+    fetchHotelDetails();
   }, [navigate]);
 
   return (
     <div className="hotel-dashboard">
-      <Navbar role="Hotel" />
-      {error && <p className="error">{error}</p>}
-      {hotelDetails ? (
-        <div>
-          <h3>
-            {hotelDetails.hotel.hotel_name} - {hotelDetails.hotel.nearest_city}
-          </h3>
-          <div className="main-buttons">
-            <img
-              className="Basket-btn"
-              src={BasketButton}
-              alt="Add to Basket"
-              onClick={() => navigate(`/login/`)}
-            />
-            <img
-              className="Order-btn"
-              src={OrderButton}
-              alt="Create Order"
-              onClick={() => navigate(`/login/`)}
-            />
-          </div>
-          <SwitchContainer/>
-        </div>
-      ) : (
-        <p>Loading hotel details...</p>
-      )}
+      <div className="dashboard-logo">
+        <img src={logo} alt="Logo" onClick={() => navigate("/")} style={{ cursor: "pointer" }} />
+        <button onClick={() => navigate(`/${role}/Settings`)}>Settings</button>
+      </div>
+      <div className="dashboard-icons-firstRow">
+        <Link to="/dashboard">
+          <img src={AddToBasket} alt="Add-to-basket" style={{ cursor: "pointer" }} />
+        </Link>
+        <Link to="/dashboard">
+          <img src={CreateOrder} alt="Create-order" style={{ cursor: "pointer" }} />
+        </Link>
+      </div>
+      <div className="dashboard-icons-secondRow">
+        <Link to="/dashboard">
+          <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
+        </Link>
+        <Link to="/dashboard">
+          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+        </Link>
+      </div>
+
+      <div className="dashboard-icons-secondRow">
+        <Link to="/dashboard">
+          <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
+        </Link>
+        <Link to="/dashboard">
+          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+        </Link>
+        <Link to="/dashboard">
+          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+        </Link>
+        <Link to="/dashboard">
+          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+        </Link>
+      </div>
+
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };
