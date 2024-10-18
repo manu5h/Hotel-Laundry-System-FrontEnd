@@ -67,9 +67,14 @@ const Login = () => {
     }
   };
 
-  const handleNavigation = (role) => {
+
+  const handleRegisterNavigation = (role) => {
     navigate(`/register/${role}`);
   };
+
+  const handleResetPasswordNavigation = (role) => {
+    navigate(`/resetPassword/${role}`);
+  }
 
   return (
     <div>
@@ -103,7 +108,7 @@ const Login = () => {
               </div>
 
               <div className="links">
-                <a href="#">Forgot Password?</a>
+              <a href="" onClick={() => handleResetPasswordNavigation(role)}>Forgot Password?</a>
               </div>
 
               {/* Submit button */}
@@ -121,7 +126,7 @@ const Login = () => {
               <div className="links">
                 <p>Don't have an account?</p>
                 <div className="options"></div>
-                <a href="" onClick={() => handleNavigation(role)}>
+                <a href="" onClick={() => handleRegisterNavigation(role)}>
                   Register here{" "}
                 </a>
               </div>
