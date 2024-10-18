@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import StartPage from './pages/StartPage';
 import Login from './pages/Login';
+import ResetPassword from './pages/ResetPassword';
+import ResetPassword_OTP from './pages/ResetPassword_OTP.js';
 import LoginDelivery from './pages/LoginDelivery';
 import LoginDelivery_OTP from './pages/LoginDelivery_OTP';
 import RegisterHotel from './pages/RegisterHotel';
@@ -48,6 +50,8 @@ function App() {
             {/* Public Routes */}
             <Route path="/" element={<StartPage />} />
             <Route path="/login/:role" element={<Login />} />
+            <Route path="/resetPassword/:role" element={<ResetPassword />} />
+            <Route path="/resetPassword/:role/page2" element={<ResetPassword_OTP />} />
             <Route path="/login/Delivery" element={<LoginDelivery />} />
             <Route path="/login/Delivery/page2" element={<LoginDelivery_OTP />} />
             <Route path="/register/Hotel" element={<RegisterHotel />} />
