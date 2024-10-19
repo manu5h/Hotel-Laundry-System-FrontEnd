@@ -68,7 +68,7 @@ const HotelDashboard = () => {
         <button onClick={() => navigate(`/${role}/Settings`)}>Settings</button>
       </div>
       <div className="dashboard-icons-firstRow">
-        <Link to="/dashboard">
+        <Link to="/addtoBasket">
           <img src={AddToBasket} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/dashboard">

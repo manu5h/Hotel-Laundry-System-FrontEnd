@@ -1,0 +1,73 @@
+@font-face {
+  font-family: "Poppins-Medium";
+  src: url("../assets/fonts/Poppins-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-Light";
+  src: url("../assets/fonts/Poppins-Light.ttf") format("truetype");
+}
+
+.add-to-basket-form {
+  background-color: #fff;
+  min-height: 100vh;
+  padding-left: 40px;
+}
+
+.add-to-basket-form h2 {
+    padding-top: 30px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.add-to-basket-form select {
+  font-family: "Poppins-Medium";
+  font-size: 16px;
+  color: #fff;
+  border-radius: 20px;
+  height: 40px;
+  width: 580px;
+  padding: 0 10px 0 10px;
+  background-color: #025a97;
+  border: none;
+}
+
+.add-to-basket-form label {
+  margin-right: 30px;
+}
+
+.add-to-basket-form label input {
+  margin-right: 10px;
+}
+
+.add-to-basket-form textarea {
+  padding: 5px;
+  font-size: 14px;
+  font-family: "Poppins-Medium";
+  width: 565px;
+  height: 140px;
+}
+
+.add-to-basket-submit-btn {
+  margin-top: 20px;
+  padding: 0;
+  border-radius: 20px;
+  width: 90px;
+  height: 40px;
+}
+
+@media (max-width: 675px) {
+  .add-to-basket-form select {
+    width: 75%;
+  }
+
+  .add-to-basket-form textarea {
+    width: 75%;
+  }
+  .add-to-basket-form {
+    padding-left: 5%;
+  }
+  .add-to-basket-form label {
+    margin-right: 10%;
+  }
+}
