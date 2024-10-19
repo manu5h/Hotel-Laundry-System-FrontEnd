@@ -30,9 +30,6 @@ const NavBar = () => {
           <p className="nav-home" onClick={goToHome}>
             Home
           </p>
-          <p className="nav-settings" onClick={goToHome}>
-            Settings
-          </p>
         </div>
       </div>
     </nav>

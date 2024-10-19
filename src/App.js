@@ -13,6 +13,7 @@ import RegisterLaundry_OTP from './pages/RegisterLaundry_OTP';
 import HotelDashboard from './pages/DashboardHotel';
 import ProtectedRoute from './components/ProtectedRoute';
 import Settings from './pages/Settings';
+import AddtoBasket from './pages/AddtoBasket.js';
 
 function App() {
   // State to hold the token
@@ -65,6 +66,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/:role/dashboard" element={<HotelDashboard />} />
           <Route path="/:role/Settings" element={<Settings />} />
+          <Route path="/addtoBasket" element={<AddtoBasket />} />
         </Route>
       </Routes>
     </Router>

@@ -40,6 +40,9 @@ const API_ENDPOINT = {
   //delete account
   DELETE_hotel: `${API_BASE_URL}/auth/delete/hotel`,
   DELETE_laundry: `${API_BASE_URL}/auth/delete/laundry`,
+
+  //Add to basket
+  CREATE_Item: `${API_BASE_URL}/item/create`,
 };
 
 export { API_BASE_URL, API_ENDPOINT };
