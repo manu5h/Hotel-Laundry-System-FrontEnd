@@ -12,7 +12,7 @@ const StartPage = () => {
 
   return (
     <div className="Main-container">
-      <div className="logo">
+      <div className="starting-page-logo">
         <img src={logo} alt="Logo" />
       </div>
       <div className="slogan">

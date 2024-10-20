@@ -9,27 +9,29 @@
 }
 
 .add-to-basket-form {
-  background-color: #fff;
-  min-height: 100vh;
+  background-image: url("../assets/images/AddToBasket_bg.png");
+  background-size: cover;
+  height: 100vh;
   padding-left: 40px;
 }
 
 .add-to-basket-form h2 {
-    padding-top: 30px;
-    margin-top: 0;
-    margin-bottom: 10px;
+  font-size: 22px;
+  padding-top: 30px;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .add-to-basket-form select {
   font-family: "Poppins-Medium";
   font-size: 16px;
-  color: #fff;
+  color: #000;
   border-radius: 20px;
   height: 40px;
   width: 580px;
   padding: 0 10px 0 10px;
-  background-color: #025a97;
-  border: none;
+  background-color: #fff;
+  border: 2px solid #000;
 }
 
 .add-to-basket-form label {

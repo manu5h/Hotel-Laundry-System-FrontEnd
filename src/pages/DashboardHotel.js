@@ -71,16 +71,8 @@ const HotelDashboard = () => {
         <Link to="/addtoBasket">
           <img src={AddToBasket} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/dashboard">
+        <Link to="/CreateOrder">
           <img src={CreateOrder} alt="Create-order" style={{ cursor: "pointer" }} />
-        </Link>
-      </div>
-      <div className="dashboard-icons-secondRow">
-        <Link to="/dashboard">
-          <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
-        </Link>
-        <Link to="/dashboard">
-          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
       </div>
 

@@ -9,8 +9,9 @@
 }
 
 .settings-page{
-  background-color: #fff;
-  min-height: 100vh;
+  background-image: url("../assets/images/settings_bg.png");
+  background-size: cover;
+  height: 110vh;
 }
 
 .dropdown-button {
@@ -18,7 +19,7 @@
   display: flex;
   font-family: "Poppins-Light";
   cursor: pointer;
-  font-size: 34px;
+  font-size: 25px;
   margin-left: 30px;
   color: #000;
   font-weight: bold;
