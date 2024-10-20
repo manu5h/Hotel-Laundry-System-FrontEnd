@@ -42,7 +42,13 @@ const API_ENDPOINT = {
   DELETE_laundry: `${API_BASE_URL}/auth/delete/laundry`,
 
   //Add to basket
-  CREATE_Item: `${API_BASE_URL}/item/create`,
+  CREATE_Item: `${API_BASE_URL}/item/:hotel_id/create`,
+
+  //Create order
+  CREATE_Order: `${API_BASE_URL}/order/create`,
+
+  //get items by hotel id
+  GET_Items: `${API_BASE_URL}/item/hotel/:hotel_id`
 };
 
 export { API_BASE_URL, API_ENDPOINT };

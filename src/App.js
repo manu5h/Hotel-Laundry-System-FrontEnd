@@ -14,6 +14,7 @@ import HotelDashboard from './pages/DashboardHotel';
 import ProtectedRoute from './components/ProtectedRoute';
 import Settings from './pages/Settings';
 import AddtoBasket from './pages/AddtoBasket.js';
+import CreateOrder from './pages/CreateOrder.js'
 
 function App() {
   // State to hold the token
@@ -67,6 +68,7 @@ function App() {
           <Route path="/:role/dashboard" element={<HotelDashboard />} />
           <Route path="/:role/Settings" element={<Settings />} />
           <Route path="/addtoBasket" element={<AddtoBasket />} />
+          <Route path="/CreateOrder" element={<CreateOrder />} />
         </Route>
       </Routes>
     </Router>

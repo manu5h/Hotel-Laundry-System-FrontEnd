@@ -349,6 +349,7 @@ const Settings = () => {
       // Clear all stored tokens and local storage
       localStorage.removeItem("token");
       localStorage.removeItem("userRole");
+      localStorage.removeItem("userID");
       sessionStorage.clear();
 
       // Navigate to the StartPage
@@ -375,7 +376,6 @@ const Settings = () => {
   return (
     <div className="settings-page">
       <NavBar />
-
       <div className="Update-profile" style={{ position: "relative" }}>
         <p
           onClick={() =>

@@ -22,7 +22,7 @@ const AddtoBasket = () => {
     {
       category: "Bathroom Linens",
       subcategories: [
-        "Towels (bath towels, hand towels, face towels)",
+        "Towels",
         "Bathmats",
         "Robes",
       ],
@@ -97,7 +97,6 @@ const AddtoBasket = () => {
     }
 
     const body = {
-      hotel_id: id,
       category: selectedSubcategory,
       cleaningType: selectedWashingType,
       pressing_ironing: services.pressing,
@@ -107,7 +106,7 @@ const AddtoBasket = () => {
     };
 
     try {
-      const response = await fetch(API_ENDPOINT.CREATE_Item, {
+      const response = await fetch(API_ENDPOINT.CREATE_Item.replace(":hotel_id", id), {
         method: "POST",
         headers: {
           Authorization: `Bearer ${storedToken}`,
@@ -133,7 +132,7 @@ const AddtoBasket = () => {
     <div className="add-to-basket-main-container">
       <NavBar />
       <form className="add-to-basket-form" onSubmit={handleSubmit}>
-        <h2>Select Laundry Type</h2>
+        <h2>Clothing category</h2>
         <select
           value={selectedLaundryType}
           onChange={(e) => setSelectedLaundryType(e.target.value)}
@@ -150,7 +149,7 @@ const AddtoBasket = () => {
 
         {selectedLaundryType && (
           <div>
-            <h2>Select Subcategory</h2>
+            <h2>Subcategory</h2>
             <select
               value={selectedSubcategory}
               onChange={(e) => setSelectedSubcategory(e.target.value)}
@@ -169,7 +168,7 @@ const AddtoBasket = () => {
           </div>
         )}
 
-        <h2>Select Washing Type</h2>
+        <h2>Washing Type</h2>
         <select
           value={selectedWashingType}
           onChange={(e) => setSelectedWashingType(e.target.value)}
@@ -222,15 +221,20 @@ const AddtoBasket = () => {
         <textarea
           value={specialInstructions}
           onChange={(e) => setSpecialInstructions(e.target.value)}
-          placeholder="Enter any special instructions here..."
+          className="weight-input"
+          placeholder="Ex: Please handle with care."
           maxLength={250}
           style={{ resize: "none" }}
         />
 
-        {errorMessage && <p style={{ color: "red", margin: 0 }}>{errorMessage}</p>}
+        {errorMessage && (
+          <p style={{ color: "red", margin: 0 }}>{errorMessage}</p>
+        )}
         <br></br>
 
-        <button className="add-to-basket-submit-btn" type="submit">Add</button>
+        <button className="add-to-basket-submit-btn" type="submit">
+          Add
+        </button>
       </form>
     </div>
   );
