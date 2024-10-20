@@ -403,6 +403,7 @@ const Settings = () => {
                         placeholder="Hotel Name"
                         value={hotel_name}
                         onChange={(e) => setHotelName(e.target.value)}
+                        maxLength={20}
                       />
                       <p onClick={() => toggleEditMode("hotel_name")}>
                         {isEditing.hotel_name ? "Done" : "Edit"}
@@ -451,6 +452,7 @@ const Settings = () => {
                         placeholder="Nearest City"
                         value={nearest_city}
                         onChange={(e) => setNearestCity(e.target.value)}
+                        maxLength={20}
                       />
                       <p onClick={() => toggleEditMode("nearest_city")}>
                         {isEditing.nearest_city ? "Done" : "Edit"}
@@ -472,6 +474,7 @@ const Settings = () => {
                         placeholder="Laundry Name"
                         value={laundry_name}
                         onChange={(e) => setLaundryName(e.target.value)}
+                        maxLength={20}
                       />
                       <p onClick={() => toggleEditMode("laundry_name")}>
                         {isEditing.laundry_name ? "Done" : "Edit"}
@@ -520,6 +523,7 @@ const Settings = () => {
                         placeholder="Nearest City"
                         value={nearest_city}
                         onChange={(e) => setNearestCity(e.target.value)}
+                        maxLength={20}
                       />
                       <p onClick={() => toggleEditMode("nearest_city")}>
                         {isEditing.nearest_city ? "Done" : "Edit"}
@@ -535,6 +539,7 @@ const Settings = () => {
                         placeholder="Bank Name"
                         value={bank_name}
                         onChange={(e) => setBankName(e.target.value)}
+                        maxLength={20}
                       />
                       <p onClick={() => toggleEditMode("bank_name")}>
                         {isEditing.bank_name ? "Done" : "Edit"}
@@ -564,6 +569,7 @@ const Settings = () => {
                         readOnly={!isEditing.bank_account_holder_name}
                         placeholder="Bank Account Holder Name"
                         value={bank_account_holder_name}
+                        maxLength={20}
                         onChange={(e) =>
                           setBankAccountHolderName(e.target.value)
                         }
@@ -592,6 +598,7 @@ const Settings = () => {
                         placeholder="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        maxLength={20}
                       />
                       <p onClick={() => toggleEditMode("name")}>
                         {isEditing.name ? "Done" : "Edit"}

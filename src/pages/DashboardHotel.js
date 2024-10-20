@@ -77,7 +77,7 @@ const HotelDashboard = () => {
       </div>
 
       <div className="dashboard-icons-secondRow">
-        <Link to="/dashboard">
+        <Link to="/RequestLaundry">
           <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/dashboard">

@@ -14,7 +14,10 @@ import HotelDashboard from './pages/DashboardHotel';
 import ProtectedRoute from './components/ProtectedRoute';
 import Settings from './pages/Settings';
 import AddtoBasket from './pages/AddtoBasket.js';
-import CreateOrder from './pages/CreateOrder.js'
+import CreateOrder from './pages/CreateOrder.js';
+import RequestLaundry from './pages/RequestOrder.js';
+import RequestOrderConfirm from './pages/RequestOrderConfirm.js'
+
 
 function App() {
   // State to hold the token
@@ -69,6 +72,8 @@ function App() {
           <Route path="/:role/Settings" element={<Settings />} />
           <Route path="/addtoBasket" element={<AddtoBasket />} />
           <Route path="/CreateOrder" element={<CreateOrder />} />
+          <Route path="/RequestLaundry" element={<RequestLaundry />} />
+          <Route path="/RequestOrder/Page2" element={<RequestOrderConfirm />} />
         </Route>
       </Routes>
     </Router>

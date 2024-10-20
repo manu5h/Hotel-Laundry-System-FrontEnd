@@ -153,6 +153,7 @@ const RegisterLaundry = () => {
                   placeholder="Laundry Name"
                   value={laundry_name}
                   onChange={(e) => setlaundry_name(e.target.value)}
+                  maxLength={20}
                 />
               </div>
 
@@ -183,6 +184,7 @@ const RegisterLaundry = () => {
                   placeholder="Nearest City"
                   value={nearest_city}
                   onChange={(e) => setNearestCity(e.target.value)}
+                  maxLength={20}
                 />
               </div>
 
