@@ -67,14 +67,13 @@ useEffect(() => {
     }
 
     const body = {
-      hotel_id: id,
       weight: parseFloat(weight),
       special_notes: specialNotes,
       itemIds: selectedItemIds,
     };
 
     try {
-      const response = await fetch(API_ENDPOINT.CREATE_Order, {
+      const response = await fetch(API_ENDPOINT.CREATE_Order.replace(":hotel_id", id), {
         method: "POST",
         headers: {
           Authorization: `Bearer ${storedToken}`,

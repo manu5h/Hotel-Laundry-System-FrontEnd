@@ -72,7 +72,7 @@
 
 .item-description {
     overflow-y: auto;
-    height: 400px;
+    max-height: 400px;
     display: flex;
     justify-content: space-between;
     width: 96%;

@@ -145,6 +145,7 @@ const RegisterHotel = () => {
                   placeholder="Hotel Name"
                   value={hotel_name}
                   onChange={(e) => setHotelName(e.target.value)}
+                  maxLength={20}
                 />
               </div>
 
@@ -178,6 +179,7 @@ const RegisterHotel = () => {
                   placeholder="Nearest City"
                   value={nearest_city}
                   onChange={(e) => setNearestCity(e.target.value)}
+                  maxLength={20}
                 />
               </div>
 
