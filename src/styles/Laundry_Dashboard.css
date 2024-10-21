@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "Poppins-Medium";
+    src: url("../assets/fonts/Poppins-Medium.ttf") format("truetype");
+  }
+  
+  @font-face {
+    font-family: "Poppins-Light";
+    src: url("../assets/fonts/Poppins-Light.ttf") format("truetype");
+  }
+  
+  .laundry-dashboard {
+    background-image: url("../assets/images/Laundry-dashboard-background.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  }
+  
+  .dashboard-logo {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 0 10px;
+    width: 99%;
+    justify-content: space-between;
+  }
+  
+  .dashboard-logo img {
+    width: 300px;
+    height: 100%;
+  }
+  
+  .dashboard-logo button {
+    margin-right: 10px;
+    box-shadow: 0 0 5px rgb(2 74 165);
+    width: 120px;
+    border-radius: 30px;
+  }
+  
+  .dashboard-icons-firstRow {
+    margin: 125px 0 0 70px;
+  }
+  
+  .dashboard-icons-firstRow img {
+    width: 270px;
+    margin: 0 62px;
+  }
+  
+  .laundry-dashboard-icons-secondRow {
+    margin: 110px 0 0 130px;
+  }
+  
+  .laundry-dashboard-icons-secondRow img {
+    margin: 0 20px;
+  }
+  
+  @media (max-width: 550px) {
+    .laundry-dashboard {
+      background-position: left;
+      overflow-y: auto; 
+      max-height: 100vh; 
+    }
+  
+    .dashboard-logo img {
+      width: 200px;
+    }
+  
+    .laundry-dashboard-icons-secondRow {
+      display: grid;
+      margin: 10px 0 0 0;
+      justify-content: center;
+    }
+    .dashboard-icons-firstRow {
+      justify-content: center;
+      display: grid;
+      margin-top: 5%;
+    }
+  }
+  

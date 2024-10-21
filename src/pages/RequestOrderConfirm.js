@@ -123,7 +123,7 @@ const RequestOrderConfirm = () => {
       <NavBar />
       <div className="request-order-main-container">
         <div className="laundry-details-view">
-          <h2>Laundry Details</h2>
+          <h2 style={{padding: "10px 0 0 0"}}>Laundry Details</h2>
           <p>Name: {laundry_name}</p>
           <p>Email: {laundry_email}</p>
           <p>Phone number: {laundry_phone_number}</p>
