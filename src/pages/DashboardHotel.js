@@ -80,7 +80,7 @@ const HotelDashboard = () => {
         <Link to="/RequestLaundry">
           <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/dashboard">
+        <Link to="/PendingPayment">
           <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/dashboard">

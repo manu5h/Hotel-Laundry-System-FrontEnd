@@ -228,7 +228,7 @@ const AcceptByLaundry = () => {
 
             {/* Input field for amount */}
             <div className="amount-div">
-              <label htmlFor="amount">Total Amount:</label>
+              <label htmlFor="amount">Total Amount (LKR) :</label>
               <input
                 type="number"
                 id="amount"
