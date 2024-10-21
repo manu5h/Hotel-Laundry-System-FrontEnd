@@ -52,9 +52,11 @@ const Login = () => {
         localStorage.setItem("userRole", role);
         localStorage.setItem("userID", data.result.id);
 
-        navigate(`/${role}/dashboard`, {
-          replace: true,
-        });
+        if (role === 'Hotel') {
+          navigate('/hotel/dashboard');
+        } else if (role === 'Laundry') {
+          navigate('/laundry/dashboard');
+        }
 
         console.log("login successful");
       } else {

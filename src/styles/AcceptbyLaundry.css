@@ -1,0 +1,134 @@
+.accept-by-laundry-main-container {
+  background-image: url("../assets/images/confirmRequest_bg.png");
+  background-size: cover;
+  height: 110vh;
+}
+
+.accept-by-laundry {
+  margin-left: 40px;
+}
+
+.order-details-modal p,
+h4,
+ul {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+}
+
+.order-details-modal {
+  max-width: 60%;
+}
+
+.order-details-modal h4 {
+  font-family: "Poppins-Medium";
+}
+
+.order-details-modal button {
+  padding: 0;
+  height: 40px;
+  width: 150px;
+  margin: 10px 10px 20px 0;
+}
+
+.order-details-modal h3,
+label {
+  font-size: 16px;
+  margin: 20px 0 5px 0;
+  color: #005b96;
+  font-weight: bold;
+}
+
+.amount-div {
+  margin: 20px 0 20px 0;
+}
+
+.amount-div input {
+  font-family: "Poppins-Medium";
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.decline-btn {
+  border: 2px solid #e72929;
+  background-color: #e72929;
+}
+
+.decline-btn:hover {
+  color: #e72929;
+}
+
+.accept-button {
+  background-color: #06d001;
+  border: 2px solid #06d001;
+}
+
+.accept-button:hover {
+  color: #06d001;
+}
+
+.inactive-button {
+  background-color: #d3d3d3;
+  color: #fff;
+  cursor: not-allowed;
+  pointer-events: none;
+  border: none;
+}
+
+.accept-by-laundry-table th {
+  text-align: start;
+}
+
+.accept-by-laundry-table {
+  width: 60%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+}
+
+.accept-by-laundry-table td {
+  height: 60px;
+  color: #fff;
+}
+
+.accept-by-laundry-table th,
+.accept-by-laundry-table td {
+  border: none;
+  padding-left: 20px;
+  text-align: left;
+}
+
+/* Background color for all rows */
+.accept-by-laundry-table tr {
+  background-color: #025a97;
+  border-radius: 20px;
+}
+
+/* Apply border-radius to individual cells for visual rounded row effect */
+.accept-by-laundry-table tr td:first-child {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.accept-by-laundry-table tr td:last-child {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+/* Styling for table headings */
+.accept-by-laundry-table th {
+  background-color: #fff;
+  font-weight: bold;
+}
+
+/* Center align for the clickable arrow */
+.accept-by-laundry-table td:last-child {
+  cursor: pointer;
+  text-align: center;
+}
+
+.accept-by-laundry-table td:last-child:hover {
+  transform: scale(1.5);
+  transition: transform 0.3s ease;
+}

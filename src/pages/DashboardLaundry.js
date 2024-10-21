@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
-import "../styles/Hotel_Dashboard.css";
+import "../styles/Laundry_Dashboard.css";
 import { API_ENDPOINT } from "../config";
 import logo from "../assets/images/logo.png";
 import AddToBasket from "../assets/images/AddToBasket.png";
 import box1 from "../assets/images/box1.png";
 import CreateOrder from "../assets/images/CreateOrder.png";
 
-const HotelDashboard = () => {
+const LaundryDashboard = () => {
   const { role } = useParams();
   const navigate = useNavigate();
-  const [hotelDetails, setHotelDetails] = useState(null); // To store hotel details
+  const [LaundryDetails, setLaundryDetails] = useState(null); // To store Laundry details
   const [error, setError] = useState(""); // To store any errors
 
   useEffect(() => {
-    const fetchHotelDetails = async () => {
+    const fetchLaundryDetails = async () => {
       try {
         const storedToken = localStorage.getItem("token");
-        const hotelId = localStorage.getItem("userID");
+        const LaundryId = localStorage.getItem("userID");
 
         // Check if token is not present
         if (!storedToken) {
-          navigate("/login/Hotel", { replace: true });
+          navigate("/login/Laundry", { replace: true });
           return;
         }
 
-        // Make the API call to get hotel details
+        // Make the API call to get Laundry details
         const response = await fetch(
-          API_ENDPOINT.GET_Hotel_details.replace(":hotel_id", hotelId),
+          API_ENDPOINT.GET_Laundry_details.replace(":laundry_id", LaundryId),
           {
             method: "GET",
             headers: {
@@ -40,46 +40,47 @@ const HotelDashboard = () => {
         // Handle response based on status code
         if (response.ok) {
           const result = await response.json();
-          setHotelDetails(result); // Store hotel details
+          setLaundryDetails(result); // Store Laundry details
           setError(""); // Clear errors
         } else if (response.status === 403 || response.status === 401) {
           // If the token is invalid or expired, redirect to login
           console.error("Token is invalid or expired.");
           localStorage.removeItem("token"); // Optionally clear the token
-          navigate("/login/Hotel", { replace: true });
+          navigate("/login/Laundry", { replace: true });
         } else {
           const errorResult = await response.json();
-          setError(errorResult.error || "Failed to fetch hotel details.");
+          setError(errorResult.error || "Failed to fetch Laundry details.");
         }
       } catch (error) {
-        console.error("Error fetching hotel details:", error);
-        setError("An error occurred while fetching hotel details.");
-        navigate("/login/Hotel", { replace: true }); // Redirect to login if an error occurs
+        console.error("Error fetching Laundry details:", error);
+        setError("An error occurred while fetching Laundry details.");
+        navigate("/login/laundry", { replace: true }); // Redirect to login if an error occurs
       }
     };
 
-    fetchHotelDetails();
+    fetchLaundryDetails();
   }, [navigate]);
 
   return (
-    <div className="hotel-dashboard">
+    <div className="laundry-dashboard">
       <div className="dashboard-logo">
         <img src={logo} alt="Logo"/>
         <button onClick={() => navigate(`/${role}/Settings`)}>Settings</button>
       </div>
-      <div className="dashboard-icons-firstRow">
-        <Link to="/addtoBasket">
-          <img src={AddToBasket} alt="Add-to-basket" style={{ cursor: "pointer" }} />
+      <div className="laundry-dashboard-icons-secondRow">
+      <Link to="/AcceptOrders">
+          <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/CreateOrder">
-          <img src={CreateOrder} alt="Create-order" style={{ cursor: "pointer" }} />
+        <Link to="/dashboard">
+          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+        </Link>
+        <Link to="/dashboard">
+          <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
       </div>
 
-      <div className="dashboard-icons-secondRow">
-        <Link to="/RequestLaundry">
-          <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
-        </Link>
+      <div className="laundry-dashboard-icons-secondRow">
+        
         <Link to="/dashboard">
           <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
@@ -96,4 +97,4 @@ const HotelDashboard = () => {
   );
 };
 
-export default HotelDashboard;
+export default LaundryDashboard;

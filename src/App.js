@@ -16,7 +16,9 @@ import Settings from './pages/Settings';
 import AddtoBasket from './pages/AddtoBasket.js';
 import CreateOrder from './pages/CreateOrder.js';
 import RequestLaundry from './pages/RequestOrder.js';
-import RequestOrderConfirm from './pages/RequestOrderConfirm.js'
+import RequestOrderConfirm from './pages/RequestOrderConfirm.js';
+import LaundryDashboard from './pages/DashboardLaundry.js';
+import AcceptByLaundry from './pages/AcceptByLaundry.js';
 
 
 function App() {
@@ -68,12 +70,14 @@ function App() {
 
         {/* Protected Routes for Authenticated Users */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/:role/dashboard" element={<HotelDashboard />} />
+          <Route path="/hotel/dashboard" element={<HotelDashboard />} />
+          <Route path="/laundry/dashboard" element={<LaundryDashboard />} />
           <Route path="/:role/Settings" element={<Settings />} />
           <Route path="/addtoBasket" element={<AddtoBasket />} />
           <Route path="/CreateOrder" element={<CreateOrder />} />
           <Route path="/RequestLaundry" element={<RequestLaundry />} />
           <Route path="/RequestOrder/Page2" element={<RequestOrderConfirm />} />
+          <Route path="/AcceptOrders" element={<AcceptByLaundry />} />
         </Route>
       </Routes>
     </Router>
