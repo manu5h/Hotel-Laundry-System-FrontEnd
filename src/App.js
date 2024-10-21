@@ -19,6 +19,7 @@ import RequestLaundry from './pages/RequestOrder.js';
 import RequestOrderConfirm from './pages/RequestOrderConfirm.js';
 import LaundryDashboard from './pages/DashboardLaundry.js';
 import AcceptByLaundry from './pages/AcceptByLaundry.js';
+import PendingPayment from './pages/PendingPayments.js';
 
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
           <Route path="/RequestLaundry" element={<RequestLaundry />} />
           <Route path="/RequestOrder/Page2" element={<RequestOrderConfirm />} />
           <Route path="/AcceptOrders" element={<AcceptByLaundry />} />
+          <Route path="/PendingPayment" element={<PendingPayment />} />
         </Route>
       </Routes>
     </Router>
