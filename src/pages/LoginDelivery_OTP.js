@@ -100,7 +100,7 @@ const LoginDelivery_OTP = () => {
                 setError("Incorrect OTP!");
                 return false;
             } else {
-                setError(result.error || "Failed to verify OTP");
+                setError(result.error || "Incorrect OTP");
                 return false;
             }
         } catch (error) {

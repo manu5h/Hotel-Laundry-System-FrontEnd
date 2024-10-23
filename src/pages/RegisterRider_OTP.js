@@ -4,7 +4,7 @@ import logo from "../assets/images/logo.png";
 import { API_ENDPOINT } from "../config";
 import "../styles/OTP_Page.css";
 
-const RegisterHotel_OTP = () => {
+const RegisterRider_OTP = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -109,7 +109,7 @@ const RegisterHotel_OTP = () => {
     const otpVerified = await verifyOtp(otp);
     if (otpVerified) {
       try {
-        const response = await fetch(API_ENDPOINT.REGISTER_HOTEL, {
+        const response = await fetch(API_ENDPOINT.REGISTER_DELIVERY, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -121,12 +121,14 @@ const RegisterHotel_OTP = () => {
 
         if (response.ok) {          
           console.log("Register successfully!");
-          alert("Register successfully! Login back now !")
-          navigate("/login/Hotel");
+          alert("Register successfully!")
+          navigate("/laundry/dashboard");
         } else {
+            console.log(formData)
           setError(data.message || "Registration failed, please try again.");
         }
       } catch (error) {
+        console.log(formData)
         setError("An error occurred during registration.");
       }
     }
@@ -188,4 +190,4 @@ const RegisterHotel_OTP = () => {
   );
 };
 
-export default RegisterHotel_OTP;
+export default RegisterRider_OTP;

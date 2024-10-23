@@ -67,7 +67,7 @@ const RegisterLaundry_OTP = () => {
       } else if (response.status === 400) {
         setError("Incorrect OTP !");
       } else {
-        setError(result.error || "Failed to verify OTP");
+        setError(result.error || "Incorrect OTP");
         return false;
       }
     } catch (error) {
