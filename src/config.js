@@ -53,11 +53,10 @@ const API_ENDPOINT = {
   //get all laundries
   GET_All_Laundries: `${API_BASE_URL}/laundry/all`,
 
-  //get orders by hotel id
+  //get orders by id
   GET_Orders_By_Hotel_Id: `${API_BASE_URL}/hotel/:hotel_id/orders`,
-
-  //get orders by laundry id
   GET_Orders_By_Laundry_Id: `${API_BASE_URL}/laundry/:laundry_id/orders`,
+  GET_Orders_By_Rider_Id: `${API_BASE_URL}/rider/:rider_id/orders`,
 
   //request laundry
   REQUEST_Laundry: `${API_BASE_URL}/hotel/:hotel_id/request-laundry`,

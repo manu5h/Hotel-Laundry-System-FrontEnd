@@ -1,0 +1,177 @@
+  .rider-process-details {
+    margin-left: 40px;
+  }
+  
+  .order-details-modal p,
+  h4,
+  ul {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+  }
+  
+  .order-details-modal {
+    max-width: 60%;
+  }
+  
+  .order-details-modal h4 {
+    font-family: "Poppins-Medium";
+  }
+  
+  .order-details-modal button {
+    padding: 0;
+    height: 40px;
+    width: 200px;
+    margin: 10px 10px 20px 0;
+  }
+  
+  .order-details-modal h3,
+  label {
+    font-size: 16px;
+    margin: 20px 0 5px 0;
+    color: #005b96;
+    font-weight: bold;
+  }
+  
+  .decline-btn {
+    border: 2px solid #e72929;
+    background-color: #e72929;
+  }
+  
+  .decline-btn:hover {
+    color: #e72929;
+  }
+  
+  .accept-button {
+    background-color: #06d001;
+    border: 2px solid #06d001;
+  }
+  
+  .accept-button:hover {
+    color: #06d001;
+  }
+  
+  .inactive-button {
+    background-color: #d3d3d3;
+    color: #fff;
+    cursor: not-allowed;
+    pointer-events: none;
+    border: none;
+  }
+  
+  .rider-process-table th {
+    text-align: start;
+  }
+  
+  .rider-process-table {
+    width: 40%;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+  }
+  
+  .rider-process-table td {
+    height: 60px;
+    color: #fff;
+  }
+  
+  .rider-process-table th,
+  .rider-process-table td {
+    border: none;
+    padding-left: 20px;
+    text-align: left;
+  }
+  
+  /* Background color for all rows */
+  .rider-process-table tr {
+    background-color: #025a97;
+    border-radius: 20px;
+  }
+  
+  /* Styling for table headings */
+  .rider-process-table th {
+    background-color: #fff;
+    font-weight: bold;
+  }
+  
+  /* Apply border-radius to individual cells for visual rounded row effect */
+  .rider-process-table tr td:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+  
+  .rider-process-table tr td:last-child {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  
+  /* Center align for the clickable arrow */
+  .rider-process-table td:last-child {
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .rider-process-table td:last-child:hover {
+    transform: scale(1.5);
+    transition: transform 0.3s ease;
+  }
+  
+  .pending-confirmation-table {
+    width: 60%;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+  }
+  
+  .pending-confirmation-table td {
+    height: 60px;
+    color: #fff;
+  }
+  
+  .pending-confirmation-table th,
+  .pending-confirmation-table td {
+    border: none;
+    padding-left: 20px;
+    text-align: left;
+  }
+  
+  /* Background color for all rows */
+  .pending-confirmation-table tr {
+    background-color: #025a97;
+    border-radius: 20px;
+    opacity: 0.5;
+  }
+  
+  /* Styling for table headings */
+  .pending-confirmation-table th {
+    background-color: #fff;
+    font-weight: bold;
+  }
+  
+  .pending-confirmation-table tr td:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+  
+  .pending-confirmation-table tr td:last-child {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  
+  .pending-confirmation-table th {
+    text-align: start;
+  }
+  
+  .toBeConfirm-text {
+    margin: 50px 0 0 0;
+    opacity: 0.5;
+  }
+  
+  @media (max-width: 1100px) {
+    .pending-confirmation-table,
+    .rider-process-table {
+      width: 100%;
+    }
+  
+    .rider-process {
+      margin: 0 20px 0 20px;
+    }
+  }
+  
