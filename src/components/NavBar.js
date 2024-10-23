@@ -16,7 +16,7 @@ const NavBar = () => {
     } else if (role === "Laundry") {
       navigate("/Laundry/dashboard", { replace: true });
     } else if (role === "Delivery") {
-      navigate("/Delivery/dashboard", { replace: true });
+      navigate("/delivery/dashboard", { replace: true });
     } else {
       navigate("/", { replace: true }); 
     }

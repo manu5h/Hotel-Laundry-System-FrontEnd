@@ -11,7 +11,7 @@
 .settings-page{
   background-image: url("../assets/images/settings_bg.png");
   background-size: cover;
-  height: 110vh;
+  min-height: 110vh;
 }
 
 .dropdown-button {

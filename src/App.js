@@ -23,6 +23,7 @@ import PendingPayment from './pages/PendingPayments.js';
 import AddPickupRider from './pages/AddPickupRider.js';
 import RegisterRider from './pages/RegisterRider.js';
 import RegisterRider_OTP from './pages/RegisterRider_OTP';
+import RiderDashboard from './pages/DashboardRider.js';
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/hotel/dashboard" element={<HotelDashboard />} />
           <Route path="/laundry/dashboard" element={<LaundryDashboard />} />
+          <Route path="/delivery/dashboard" element={<RiderDashboard />} />
           <Route path="/:role/Settings" element={<Settings />} />
           <Route path="/addtoBasket" element={<AddtoBasket />} />
           <Route path="/CreateOrder" element={<CreateOrder />} />

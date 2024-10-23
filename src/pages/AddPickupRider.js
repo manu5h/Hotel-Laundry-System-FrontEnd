@@ -45,7 +45,7 @@ const AddPickupRider = () => {
         setFilteredOrders(statusThreeOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
-        setError("Failed to fetch orders.");
+        
       }
     };
 

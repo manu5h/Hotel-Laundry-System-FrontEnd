@@ -8,8 +8,8 @@
     src: url("../assets/fonts/Poppins-Light.ttf") format("truetype");
   }
   
-  .laundry-dashboard {
-    background-image: url("../assets/images/Laundry-dashboard-background.png");
+  .Rider-dashboard {
+    background-image: url("../assets/images/Rider-dashboard-background.png");
     background-size: cover;
     background-position: center;
     min-height: 100vh;
@@ -44,16 +44,16 @@
     margin: 0 62px;
   }
   
-  .laundry-dashboard-icons-secondRow {
-    margin: 110px 0 0 130px;
+  .Rider-dashboard-icons-secondRow {
+    margin: 110px 0 0 250px;
   }
   
-  .laundry-dashboard-icons-secondRow img {
+  .Rider-dashboard-icons-secondRow img {
     margin: 0 20px;
   }
   
   @media (max-width: 550px) {
-    .laundry-dashboard {
+    .Rider-dashboard {
       background-position: left;
       overflow-y: auto; 
       max-min-height: 100vh; 
@@ -63,7 +63,7 @@
       width: 200px;
     }
   
-    .laundry-dashboard-icons-secondRow {
+    .Rider-dashboard-icons-secondRow {
       display: grid;
       margin: 10px 0 0 0;
       justify-content: center;

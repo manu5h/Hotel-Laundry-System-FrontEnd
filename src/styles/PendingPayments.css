@@ -1,7 +1,7 @@
 .pending-payment-main-container {
   background-image: url("../assets/images/confirmRequest_bg.png");
   background-size: cover;
-  height: 110vh;
+  min-height: 110vh;
 }
 
 .pending-payment {

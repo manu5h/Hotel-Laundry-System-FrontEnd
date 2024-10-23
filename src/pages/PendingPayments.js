@@ -46,7 +46,7 @@ const PendingPayment = () => {
         setPendingConfirmationOrders(pendingOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
-        setError("Failed to fetch orders.");
+        
       }
     };
 

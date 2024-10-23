@@ -41,7 +41,7 @@ const AcceptByLaundry = () => {
         setOrders(data.orders || []); // Assuming data.orders is the correct path
       } catch (error) {
         console.error("Error fetching orders:", error);
-        setError("Failed to fetch orders.");
+        
       }
     };
 
