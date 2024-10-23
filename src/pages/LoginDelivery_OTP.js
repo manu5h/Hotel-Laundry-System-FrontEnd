@@ -121,7 +121,7 @@ const LoginDelivery_OTP = () => {
 
         const otpVerified = await verifyOtp(otp);
         if (otpVerified) {
-            navigate("/");
+            navigate("/delivery/dashboard");
         }
     };
 
@@ -165,7 +165,7 @@ const LoginDelivery_OTP = () => {
                             </div>
 
                             <div className="inputBox">
-                                <input type="submit" value="Register" />
+                                <input type="submit" value="Login" />
                             </div>
 
                             {error && (

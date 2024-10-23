@@ -12,7 +12,6 @@ const Settings = () => {
   const storedToken = localStorage.getItem("token");
   const role = localStorage.getItem("userRole");
 
-
   const [showUpdateProfileDropdown, setShowUpdateProfileDropdown] =
     useState(false);
   const [showChangePasswordDropdown, setShowChangePasswordDropdown] =
@@ -54,6 +53,7 @@ const Settings = () => {
   const [newPassword, setnewPassword] = useState("");
 
   const [Password, setpassword] = useState("");
+  const [laundry_id, setLaundryID] = useState("");
 
   // Function to fetch details based on role
   const fetchDetails = async () => {
@@ -63,8 +63,8 @@ const Settings = () => {
       url = API_ENDPOINT.GET_Hotel_details.replace(":hotel_id", id);
     } else if (role === "Laundry") {
       url = API_ENDPOINT.GET_Laundry_details.replace(":laundry_id", id);
-    } else {
-      url = API_ENDPOINT.GET_Rider_details.replace(":rider_id", id);
+    } else if (role === "Delivery") {
+      url = API_ENDPOINT.GET_Delivery_details.replace(":rider_id", id);
     }
 
     try {
@@ -81,6 +81,7 @@ const Settings = () => {
       }
 
       const data = await response.json();
+
 
       if (role === "Hotel") {
         setEmail(data.hotel.email);
@@ -104,6 +105,7 @@ const Settings = () => {
         setPhoneNumber(data.rider.phone_number);
         setAddress(data.rider.address);
         setNIC(data.rider.NIC);
+        setLaundryID(data.rider.laundry_id);
       }
     } catch (error) {
       console.error("Error fetching details:", error);
@@ -129,21 +131,28 @@ const Settings = () => {
       { value: phone_number, field: "Phone Number" },
       { value: email, field: "Email" },
       { value: address, field: "Address" },
-      { value: nearest_city, field: "Nearest City" },
     ];
 
     if (role === "Hotel") {
-      inputs.push({ value: hotel_name, field: "Hotel Name" });
+      inputs.push(
+        { value: hotel_name, field: "Hotel Name" },
+        { value: nearest_city, field: "Nearest City" }
+      );
     } else if (role === "Laundry") {
       inputs.push(
         { value: laundry_name, field: "Laundry Name" },
         { value: bank_name, field: "Bank Name" },
         { value: bank_account_number, field: "Bank Account Number" },
         { value: bank_account_holder_name, field: "Bank Account Holder Name" },
-        { value: bank_branch, field: "Branch" }
+        { value: bank_branch, field: "Branch" },
+        { value: nearest_city, field: "Nearest City" }
       );
     } else {
-      inputs.push({ value: name, field: "Name" }, { value: NIC, field: "NIC" });
+      inputs.push(
+        { value: name, field: "Name" },
+        { value: NIC, field: "NIC" },
+        { value: laundry_id, field: "Laundry ID" }
+      );
     }
 
     for (const input of inputs) {
@@ -180,7 +189,7 @@ const Settings = () => {
         bank_name,
         bank_account_number,
         bank_account_holder_name,
-        bank_branch
+        bank_branch,
       };
     } else {
       url = API_ENDPOINT.UPDATE_DELIVERY;
@@ -190,6 +199,7 @@ const Settings = () => {
         phone_number,
         address,
         NIC,
+        laundry_id,
       };
     }
 
@@ -347,7 +357,6 @@ const Settings = () => {
 
   // Function to logout
   const LogOut = async () => {
-  
     const confirmLogout = window.confirm("Are you sure you want to log out?");
 
     if (confirmLogout) {
@@ -597,15 +606,9 @@ const Settings = () => {
                         placeholder="Account Branch"
                         value={bank_branch}
                         maxLength={20}
-                        onChange={(e) =>
-                          setbankBranch(e.target.value)
-                        }
+                        onChange={(e) => setbankBranch(e.target.value)}
                       />
-                      <p
-                        onClick={() =>
-                          toggleEditMode("bank_branch")
-                        }
-                      >
+                      <p onClick={() => toggleEditMode("bank_branch")}>
                         {isEditing.bank_branch ? "Done" : "Edit"}
                       </p>
                     </div>
@@ -614,7 +617,7 @@ const Settings = () => {
               )}
 
               {/* Rider profile fields */}
-              {role === "Rider" && (
+              {role === "Delivery" && (
                 <>
                   <li>
                     <div className="inputBox-settings">
@@ -641,9 +644,9 @@ const Settings = () => {
                         placeholder="Phone Number"
                         value={phone_number}
                         onChange={(e) => handlePhoneNumberChange(e)}
-                        maxLength={10} // Restricting the input to 10 digits
-                        inputMode="numeric" // Mobile devices will show numeric keypad
-                        pattern="[0-9]*" // Ensures the input contains only numbers
+                        maxLength={10}
+                        inputMode="numeric"
+                        pattern="[0-9]*"
                       />
                       <p onClick={() => toggleEditMode("phone_number")}>
                         {isEditing.phone_number ? "Done" : "Edit"}
@@ -697,101 +700,105 @@ const Settings = () => {
       </div>
 
       {/* change password */}
-      <div className="Update-profile" style={{ position: "relative" }}>
-        <p
-          onClick={() =>
-            setShowChangePasswordDropdown(!showChangePasswordDropdown)
-          }
-          className="dropdown-button"
-        >
-          Change Password{" "}
-          <IoIosArrowDown
-            className={showChangePasswordDropdown ? "rotate-arrow" : ""}
-          />
-        </p>
-        {showChangePasswordDropdown && (
-          <div className="settings-dropdown-menu">
-            <ul>
-              <>
-                <li>
-                  <div className="inputBox-settings">
-                    <p className="Field-name">Current Password</p>
-                    <input
-                      type="text"
-                      placeholder="Enter Current Password"
-                      value={currentPassword}
-                      onChange={(e) => setcurrentPassword(e.target.value)}
-                    />
-                  </div>
-                </li>
-                <li>
-                  <div className="inputBox-settings">
-                    <p className="Field-name">New Password</p>
-                    <input
-                      type="text"
-                      placeholder="Enter New Password"
-                      value={newPassword}
-                      onChange={(e) => setnewPassword(e.target.value)}
-                    />
-                  </div>
-                </li>
-              </>
-            </ul>
+      {role !== "Delivery" && (
+        <div className="Update-profile" style={{ position: "relative" }}>
+          <p
+            onClick={() =>
+              setShowChangePasswordDropdown(!showChangePasswordDropdown)
+            }
+            className="dropdown-button"
+          >
+            Change Password{" "}
+            <IoIosArrowDown
+              className={showChangePasswordDropdown ? "rotate-arrow" : ""}
+            />
+          </p>
+          {showChangePasswordDropdown && (
+            <div className="settings-dropdown-menu">
+              <ul>
+                <>
+                  <li>
+                    <div className="inputBox-settings">
+                      <p className="Field-name">Current Password</p>
+                      <input
+                        type="text"
+                        placeholder="Enter Current Password"
+                        value={currentPassword}
+                        onChange={(e) => setcurrentPassword(e.target.value)}
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <div className="inputBox-settings">
+                      <p className="Field-name">New Password</p>
+                      <input
+                        type="text"
+                        placeholder="Enter New Password"
+                        value={newPassword}
+                        onChange={(e) => setnewPassword(e.target.value)}
+                      />
+                    </div>
+                  </li>
+                </>
+              </ul>
 
-            <div className="save-and-discard">
-              <button onClick={discardChanges} className="save-button">
-                Discard
-              </button>
-              <button onClick={saveChangePassword} className="save-button">
-                Save
-              </button>
+              <div className="save-and-discard">
+                <button onClick={discardChanges} className="save-button">
+                  Discard
+                </button>
+                <button onClick={saveChangePassword} className="save-button">
+                  Save
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
 
       {/* Delete profile */}
-      <div className="Update-profile" style={{ position: "relative" }}>
-        <p
-          onClick={() =>
-            setShowDeleteProfileDropdown(!showDeleteProfileDropdown)
-          }
-          className="dropdown-button"
-        >
-          Delete Profile{" "}
-          <IoIosArrowDown
-            className={showDeleteProfileDropdown ? "rotate-arrow" : ""}
-          />
-        </p>
-        {showDeleteProfileDropdown && (
-          <div className="settings-dropdown-menu">
-            <ul>
-              <>
-                <li>
-                  <div className="inputBox-settings">
-                    <p className="Field-name">Password</p>
-                    <input
-                      type="text"
-                      placeholder="Enter Password"
-                      value={Password}
-                      onChange={(e) => setpassword(e.target.value)}
-                    />
-                  </div>
-                </li>
-              </>
-            </ul>
+      {role !== "Delivery" && (
+        <div className="Update-profile" style={{ position: "relative" }}>
+          <p
+            onClick={() =>
+              setShowDeleteProfileDropdown(!showDeleteProfileDropdown)
+            }
+            className="dropdown-button"
+          >
+            Delete Profile{" "}
+            <IoIosArrowDown
+              className={showDeleteProfileDropdown ? "rotate-arrow" : ""}
+            />
+          </p>
+          {showDeleteProfileDropdown && (
+            <div className="settings-dropdown-menu">
+              <ul>
+                <>
+                  <li>
+                    <div className="inputBox-settings">
+                      <p className="Field-name">Password</p>
+                      <input
+                        type="text"
+                        placeholder="Enter Password"
+                        value={Password}
+                        onChange={(e) => setpassword(e.target.value)}
+                      />
+                    </div>
+                  </li>
+                </>
+              </ul>
 
-            <div className="save-and-discard">
-              <button onClick={discardChanges} className="save-button">
-                Discard
-              </button>
-              <button onClick={deleteProfileSubmit} className="save-button">
-                Delete
-              </button>
+              <div className="save-and-discard">
+                <button onClick={discardChanges} className="save-button">
+                  Discard
+                </button>
+                <button onClick={deleteProfileSubmit} className="save-button">
+                  Delete
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
       <button onClick={LogOut} className="save-button">
         Log out
       </button>

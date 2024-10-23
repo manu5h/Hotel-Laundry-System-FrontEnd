@@ -21,7 +21,7 @@ const LoginDelivery = () => {
     setError("");
 
     const formData = {
-        email,
+      email,
     };
 
     // Log to see how many times this function is called
@@ -31,38 +31,40 @@ const LoginDelivery = () => {
     if (loading) return;
 
     try {
-        // Set loading state
-        setLoading(true);
+      // Set loading state
+      setLoading(true);
 
-        // Send the POST request to the appropriate API endpoint based on role
-        const response = await fetch(API_ENDPOINT.LOGIN_DELIVERY, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        });
+      // Send the POST request to the appropriate API endpoint based on role
+      const response = await fetch(API_ENDPOINT.LOGIN_DELIVERY, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (response.ok) {
-            // If login is successful, store the token and navigate to the delivery dashboard
-            localStorage.setItem("token", data.token);
-            navigate("/login/Delivery/page2", { state: formData }); // Redirect to the delivery dashboard
-            console.log("Valid email, token received.");
-        } else {
-            // If login fails, show an error message
-            setError(data.message || "Login failed, please try again.");
-        }
+      if (response.ok) {
+        localStorage.setItem("userRole", "Delivery");
+        localStorage.setItem("userID", data.result.id);
+        localStorage.setItem("token", data.token);
+
+        navigate("/login/Delivery/page2", { state: formData });
+
+        console.log("Valid email, token received.");
+      } else {
+        // If login fails, show an error message
+        setError(data.message || "Login failed, please try again.");
+      }
     } catch (error) {
-        // Handle any network or other errors
-        setError("An error occurred, please try again later.");
+      // Handle any network or other errors
+      setError("An error occurred, please try again later.");
     } finally {
-        // Reset loading state
-        setLoading(false);
+      // Reset loading state
+      setLoading(false);
     }
-};
-
+  };
 
   return (
     <div>
