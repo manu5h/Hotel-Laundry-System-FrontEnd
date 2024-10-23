@@ -71,10 +71,10 @@ const RiderDashboard = () => {
         <button onClick={() => navigate(`/${role}/Settings`)}>Settings</button>
       </div>
       <div className="Rider-dashboard-icons-secondRow">
-      <Link to="/AcceptOrders">
+      <Link to="/PickupfromHotel">
           <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/confirmPayment">
+        <Link to="/PickupfromHotel">
           <img src={box2} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
       </div>

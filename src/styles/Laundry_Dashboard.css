@@ -56,7 +56,7 @@
     .laundry-dashboard {
       background-position: left;
       overflow-y: auto; 
-      max-min-height: 100vh; 
+      max-height: 100vh; 
     }
   
     .dashboard-logo img {
