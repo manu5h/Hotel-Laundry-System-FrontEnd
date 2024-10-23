@@ -21,6 +21,8 @@ import LaundryDashboard from './pages/DashboardLaundry.js';
 import AcceptByLaundry from './pages/AcceptByLaundry.js';
 import PendingPayment from './pages/PendingPayments.js';
 import AddPickupRider from './pages/AddPickupRider.js';
+import RegisterRider from './pages/RegisterRider.js';
+import RegisterRider_OTP from './pages/RegisterRider_OTP';
 
 
 function App() {
@@ -82,6 +84,8 @@ function App() {
           <Route path="/AcceptOrders" element={<AcceptByLaundry />} />
           <Route path="/PendingPayment" element={<PendingPayment />} />
           <Route path="/confirmPayment" element={<AddPickupRider />} />
+          <Route path="/RegisterRider" element={<RegisterRider />} />
+          <Route path="/RegisterRider/page2" element={<RegisterRider_OTP />} />
         </Route>
       </Routes>
     </Router>
