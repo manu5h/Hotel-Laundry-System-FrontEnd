@@ -4,9 +4,9 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../components/NavBar";
 import { API_ENDPOINT } from "../config";
 import "../styles/RiderProcess.css";
-import BG_img from "../assets/images/pickupfromhotel_bg.png";
+import BG_img from "../assets/images/pickupfromlaundry_bg.png";
 
-const PickupfromHotel = () => {
+const PickupfromLaundry = () => {
   const riderID = localStorage.getItem("userID");
   const storedToken = localStorage.getItem("token");
   const [orders, setOrders] = useState([]);
@@ -66,13 +66,13 @@ const PickupfromHotel = () => {
   // Function to handle accepting the order
   const handleAccept = async (orderId) => {
     const confirmed = window.confirm(
-      "Please confirm that you are ready to pick up this order from the hotel."
+      "Please confirm that you are ready to pick up this order from the laundry."
     );
     if (!confirmed) return;
 
     try {
       const response = await fetch(
-        `http://localhost:5000/order/${orderId}/hotelPickup`, // Corrected URL to include http://
+        `http://localhost:5000/order/${orderId}/laundryPickup`,
         {
           method: "POST",
           headers: {
@@ -120,7 +120,7 @@ const PickupfromHotel = () => {
     }
   };
 
-  const validOrders = orders.filter((order) => order.orderStatus === 3);
+  const validOrders = orders.filter((order) => order.orderStatus === 6);
 
   return (
     <div
@@ -133,7 +133,7 @@ const PickupfromHotel = () => {
     >
       <NavBar />
       <div className="rider-process-details">
-        <h2 style={{ marginBottom: "0" }}>Pickup From Hotel</h2>
+        <h2 style={{ marginBottom: "0" }}>Pickup From Laundry</h2>
         {error && <p className="error-message">{error}</p>}
 
         {validOrders.length === 0 ? (
@@ -237,4 +237,4 @@ const PickupfromHotel = () => {
   );
 };
 
-export default PickupfromHotel;
+export default PickupfromLaundry;

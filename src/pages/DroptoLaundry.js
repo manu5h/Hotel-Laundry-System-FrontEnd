@@ -4,9 +4,9 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../components/NavBar";
 import { API_ENDPOINT } from "../config";
 import "../styles/RiderProcess.css";
-import BG_img from "../assets/images/pickupfromhotel_bg.png";
+import BG_img from "../assets/images/droptolaundry_bg.png";
 
-const PickupfromHotel = () => {
+const DroptoLaundry = () => {
   const riderID = localStorage.getItem("userID");
   const storedToken = localStorage.getItem("token");
   const [orders, setOrders] = useState([]);
@@ -66,13 +66,13 @@ const PickupfromHotel = () => {
   // Function to handle accepting the order
   const handleAccept = async (orderId) => {
     const confirmed = window.confirm(
-      "Please confirm that you are ready to pick up this order from the hotel."
+      "Are you prepared to drop off this order at the laundry? Please confirm."
     );
     if (!confirmed) return;
 
     try {
       const response = await fetch(
-        `http://localhost:5000/order/${orderId}/hotelPickup`, // Corrected URL to include http://
+        `http://localhost:5000/order/${orderId}/laundryDrop`,
         {
           method: "POST",
           headers: {
@@ -120,7 +120,7 @@ const PickupfromHotel = () => {
     }
   };
 
-  const validOrders = orders.filter((order) => order.orderStatus === 3);
+  const validOrders = orders.filter((order) => order.orderStatus === 4);
 
   return (
     <div
@@ -133,48 +133,48 @@ const PickupfromHotel = () => {
     >
       <NavBar />
       <div className="rider-process-details">
-        <h2 style={{ marginBottom: "0" }}>Pickup From Hotel</h2>
+        <h2 style={{ marginBottom: "0" }}>Drop to Laundry</h2>
         {error && <p className="error-message">{error}</p>}
 
         {validOrders.length === 0 ? (
-          <p style={{  fontWeight: "bold" }}>
-            No orders available for pickup.
+          <p style={{ fontWeight: "bold" }}>
+            No orders available for drop.
           </p>
         ) : (
-          <table className="rider-process-table">
-            <thead>
+        <table className="rider-process-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Hotel Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.length === 0 ? (
               <tr>
-                <th>Order ID</th>
-                <th>Hotel Name</th>
+                <td colSpan="5" style={{ textAlign: "center" }}>
+                  No pending orders.
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {orders.length === 0 ? (
-                <tr>
-                  <td colSpan="5" style={{ textAlign: "center" }}>
-                    No pending orders.
-                  </td>
-                </tr>
-              ) : (
-                orders
-                  .filter((order) => validOrders)
-                  .map((order) => (
-                    <tr key={order.id}>
-                      <td>{order.id}</td>
-                      <td>{order.hotel.name}</td>
-                      <td style={{ position: "relative" }}>
-                        <div
-                          className="arrow-container"
-                          onClick={() => handleInfoClick(order)}
-                        >
-                          <FontAwesomeIcon icon={faArrowRight} size="2xl" />
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-              )}
-            </tbody>
-          </table>
+            ) : (
+              orders
+                .filter((order) => validOrders)
+                .map((order) => (
+                  <tr key={order.id}>
+                    <td>{order.id}</td>
+                    <td>{order.hotel.name}</td>
+                    <td style={{ position: "relative" }}>
+                      <div
+                        className="arrow-container"
+                        onClick={() => handleInfoClick(order)}
+                      >
+                        <FontAwesomeIcon icon={faArrowRight} size="2xl" />
+                      </div>
+                    </td>
+                  </tr>
+                ))
+            )}
+          </tbody>
+        </table>
         )}
 
         {selectedOrder && (
@@ -227,7 +227,7 @@ const PickupfromHotel = () => {
                 className="accept-button"
                 onClick={() => handleAccept(selectedOrder.id)}
               >
-                Confirm Pickup
+                Confirm Drop
               </button>
             </div>
           </div>
@@ -237,4 +237,4 @@ const PickupfromHotel = () => {
   );
 };
 
-export default PickupfromHotel;
+export default DroptoLaundry;

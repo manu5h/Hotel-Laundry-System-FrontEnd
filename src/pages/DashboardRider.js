@@ -74,17 +74,17 @@ const RiderDashboard = () => {
       <Link to="/PickupfromHotel">
           <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/PickupfromHotel">
+        <Link to="/DroptoLaundry">
           <img src={box2} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
       </div>
 
       <div className="Rider-dashboard-icons-secondRow">
         
-        <Link to="/dashboard">
+        <Link to="/PickupfromLaundry">
           <img src={box4} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/dashboard">
+        <Link to="/DroptoHotel">
           <img src={box5} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
       </div>

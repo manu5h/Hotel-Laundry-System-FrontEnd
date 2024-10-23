@@ -25,6 +25,9 @@ import RegisterRider from './pages/RegisterRider.js';
 import RegisterRider_OTP from './pages/RegisterRider_OTP';
 import RiderDashboard from './pages/DashboardRider.js';
 import PickupfromHotel from './pages/PickupFromHotel.js';
+import DroptoLaundry from './pages/DroptoLaundry.js';
+import PickupfromLaundry from './pages/PickupfromLaundry.js';
+import DroptoHotel from './pages/DroptoHotel.js';
 
 
 function App() {
@@ -90,6 +93,9 @@ function App() {
           <Route path="/RegisterRider" element={<RegisterRider />} />
           <Route path="/RegisterRider/page2" element={<RegisterRider_OTP />} />
           <Route path="/PickupfromHotel" element={<PickupfromHotel />} />
+          <Route path="/DroptoLaundry" element={<DroptoLaundry />} />
+          <Route path="/PickupfromLaundry" element={<PickupfromLaundry />} />
+          <Route path="/DroptoHotel" element={<DroptoHotel />} />
         </Route>
       </Routes>
     </Router>
