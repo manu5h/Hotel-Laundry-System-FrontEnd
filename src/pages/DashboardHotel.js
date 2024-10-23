@@ -4,7 +4,10 @@ import "../styles/Hotel_Dashboard.css";
 import { API_ENDPOINT } from "../config";
 import logo from "../assets/images/logo.png";
 import AddToBasket from "../assets/images/AddToBasket.png";
-import box1 from "../assets/images/box1.png";
+import box1 from "../assets/images/requestLaundry_btn.png";
+import box2 from "../assets/images/PendingPayments_btn.png";
+import box3 from "../assets/images/OngoingOrders_btn.png";
+import box4 from "../assets/images/History_laundry_btn.png";
 import CreateOrder from "../assets/images/CreateOrder.png";
 
 const HotelDashboard = () => {
@@ -81,13 +84,13 @@ const HotelDashboard = () => {
           <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/PendingPayment">
-          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+          <img src={box2} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/dashboard">
-          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+          <img src={box3} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/dashboard">
-          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+          <img src={box4} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
       </div>
 

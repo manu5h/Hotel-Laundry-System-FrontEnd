@@ -122,7 +122,7 @@ const AddtoBasket = () => {
 
       console.log("New item added successfully!");
       alert("New item added successfully!");
-      navigate("/", { replace: true });
+      navigate("/hotel/dashboard", { replace: true });
     } catch (error) {
       console.error(error);
     }

@@ -4,7 +4,12 @@ import "../styles/Laundry_Dashboard.css";
 import { API_ENDPOINT } from "../config";
 import logo from "../assets/images/logo.png";
 import AddToBasket from "../assets/images/AddToBasket.png";
-import box1 from "../assets/images/box1.png";
+import box1 from "../assets/images/Accept_order_btn.png";
+import box2 from "../assets/images/AddPickupRider_btn.png";
+import box3 from "../assets/images/OngoingOrders_btn.png";
+import box4 from "../assets/images/addDropRider_btn.png";
+import box5 from "../assets/images/History_laundry_btn.png";
+import box6 from "../assets/images/createRider_btn.png";
 import CreateOrder from "../assets/images/CreateOrder.png";
 
 const LaundryDashboard = () => {
@@ -71,24 +76,24 @@ const LaundryDashboard = () => {
       <Link to="/AcceptOrders">
           <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/dashboard">
-          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+        <Link to="/confirmPayment">
+          <img src={box2} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/dashboard">
-          <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
+          <img src={box3} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
       </div>
 
       <div className="laundry-dashboard-icons-secondRow">
         
         <Link to="/dashboard">
-          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+          <img src={box4} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/dashboard">
-          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+          <img src={box5} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/dashboard">
-          <img src={box1} alt="Create-order" style={{ cursor: "pointer" }} />
+          <img src={box6} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
       </div>
 

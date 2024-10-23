@@ -13,7 +13,7 @@ const API_ENDPOINT = {
   REGISTER_DELIVERY: `${API_BASE_URL}/auth/register/deliveryRider`,
 
   //check email
-  CHECK_EMAIL : `${API_BASE_URL}/auth/check-email`,
+  CHECK_EMAIL: `${API_BASE_URL}/auth/check-email`,
 
   //passwords
   RESET_PASSWORD_HOTEL: `${API_BASE_URL}/auth/resetPassword/hotel`,
@@ -56,8 +56,29 @@ const API_ENDPOINT = {
   //get orders by hotel id
   GET_Orders_By_Hotel_Id: `${API_BASE_URL}/hotel/:hotel_id/orders`,
 
+  //get orders by laundry id
+  GET_Orders_By_Laundry_Id: `${API_BASE_URL}/laundry/:laundry_id/orders`,
+
   //request laundry
   REQUEST_Laundry: `${API_BASE_URL}/hotel/:hotel_id/request-laundry`,
+
+  //Accept order - hotel
+  CONFIRM_order_hotel: `${API_BASE_URL}/hotel/:hotel_id/order/:order_id/accept`,
+
+  //Decline order - hotel
+  DECLINE_order_hotel: `${API_BASE_URL}/hotel/:hotel_id/order/:order_id/decline`,
+
+  //Accept order - laundry
+  CONFIRM_order_laundry: `${API_BASE_URL}/laundry/:laundry_id/order/:order_id/accept`,
+
+  //Decline order - laundry
+  DECLINE_order_laundry: `${API_BASE_URL}/laundry/:laundry_id/order/:order_id/decline`,
+
+  //get riders
+  GET_Riders: `${API_BASE_URL}/laundry/:laundry_id/riders`,
+
+  //get riders
+  SET_Riders: `${API_BASE_URL}/rider/pickupRider`,
 };
 
 export { API_BASE_URL, API_ENDPOINT };
