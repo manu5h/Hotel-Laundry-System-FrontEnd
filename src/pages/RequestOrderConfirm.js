@@ -103,7 +103,7 @@ const RequestOrderConfirm = () => {
           });
         }
         alert("Laundry requested successfully!");
-        navigate("/");
+        navigate("/hotel/dashboard");
       })
       .catch((error) => {
         console.error("Error requesting laundry:", error);

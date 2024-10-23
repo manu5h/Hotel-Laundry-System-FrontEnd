@@ -3,11 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../components/NavBar";
 import "../styles/PendingPayments.css";
+import { API_ENDPOINT } from "../config";
 
 const PendingPayment = () => {
   const hotelId = localStorage.getItem("userID");
   const storedToken = localStorage.getItem("token");
-  const [orders, setOrders] = useState([]); // All orders
+  const [orders, setOrders] = useState([]);
+  const [laundryDetails, setLaundryDetails] = useState({});
+
   const [pendingConfirmationOrders, setPendingConfirmationOrders] = useState(
     []
   ); // Orders with orderStatus = 1
@@ -19,7 +22,7 @@ const PendingPayment = () => {
     const fetchOrders = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/hotel/${hotelId}/orders`,
+          API_ENDPOINT.GET_Orders_By_Hotel_Id.replace(":hotel_id", hotelId),
           {
             method: "GET",
             headers: {
@@ -49,7 +52,7 @@ const PendingPayment = () => {
 
     const fetchLaundries = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/laundry/all`, {
+        const response = await fetch(API_ENDPOINT.GET_All_Laundries, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${storedToken}`,
@@ -82,7 +85,10 @@ const PendingPayment = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/hotel/${hotelId}/order/${orderId}/accept`,
+        API_ENDPOINT.CONFIRM_order_hotel.replace(":hotel_id", hotelId).replace(
+          ":order_id",
+          orderId
+        ),
         {
           method: "POST",
           headers: {
@@ -111,9 +117,12 @@ const PendingPayment = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/hotel/${hotelId}/order/${orderId}/decline`,
+        API_ENDPOINT.DECLINE_order_hotel.replace(":hotel_id", hotelId).replace(
+          ":order_id",
+          orderId
+        ),
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             Authorization: `Bearer ${storedToken}`,
             "Content-Type": "application/json",
@@ -124,27 +133,11 @@ const PendingPayment = () => {
       if (!response.ok) {
         throw new Error("Failed to decline order");
       }
-
-      // Fetch all orders again after declining to update the state
-      const updatedResponse = await fetch(
-        `http://localhost:5000/hotel/${hotelId}/orders`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-            "Content-Type": "application/json",
-          },
-        }
+      alert(
+        "The order has been successfully declined. You can now assign it to a different laundry."
       );
 
-      if (updatedResponse.status === 200) {
-        const updatedData = await updatedResponse.json();
-        setOrders(updatedData.orders); // Set all fetched orders
-        const pendingOrders = updatedData.orders.filter(
-          (order) => order.orderStatus === 1
-        );
-        setPendingConfirmationOrders(pendingOrders); // Update pending confirmation orders
-      }
+      window.location.reload();
     } catch (error) {
       console.error("Error declining order:", error);
       setError("Failed to decline order.");
@@ -152,8 +145,32 @@ const PendingPayment = () => {
   };
 
   // Function to handle info icon click
-  const handleInfoClick = (order) => {
+  const handleInfoClick = async (order) => {
     setSelectedOrder(order);
+    try {
+      const response = await fetch(
+        API_ENDPOINT.GET_Laundry_details.replace(
+          ":laundry_id",
+          order.laundry_id
+        ),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const data = await response.json();
+        setLaundryDetails(data.laundry);
+      } else {
+        setError("Failed to fetch laundry details.");
+      }
+    } catch (error) {
+      console.error("Error fetching laundry details:", error);
+      setError("Failed to fetch laundry details.");
+    }
   };
 
   // Function to get laundry name by ID
@@ -179,29 +196,37 @@ const PendingPayment = () => {
             </tr>
           </thead>
           <tbody>
-            {orders
-              .filter((order) => order.orderStatus === 2) // Only show confirmed orders
-              .map((order) => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
-                  <td>{getLaundryNameById(order.laundry_id)}</td>{" "}
-                  {/* Get laundry name by ID */}
-                  <td>
-                    {order.created_time
-                      ? order.created_time.slice(0, 10)
-                      : "N/A"}
-                  </td>
-                  <td>{order.price ? `${order.price} LKR` : "N/A"}</td>
-                  <td style={{ position: "relative" }}>
-                    <div
-                      className="arrow-container"
-                      onClick={() => handleInfoClick(order)}
-                    >
-                      <FontAwesomeIcon icon={faArrowRight} size="2xl" />
-                    </div>
-                  </td>
-                </tr>
-              ))}
+            {orders.filter((order) => order.orderStatus === 2).length === 0 ? (
+              <tr>
+                <td colSpan="5" style={{ textAlign: "center" }}>
+                  No pending orders.
+                </td>
+              </tr>
+            ) : (
+              orders
+                .filter((order) => order.orderStatus === 2) // Only show confirmed orders
+                .map((order) => (
+                  <tr key={order.id}>
+                    <td>{order.id}</td>
+                    <td>{getLaundryNameById(order.laundry_id)}</td>{" "}
+                    {/* Get laundry name by ID */}
+                    <td>
+                      {order.created_time
+                        ? order.created_time.slice(0, 10)
+                        : "N/A"}
+                    </td>
+                    <td>{order.price ? `${order.price} LKR` : "N/A"}</td>
+                    <td style={{ position: "relative" }}>
+                      <div
+                        className="arrow-container"
+                        onClick={() => handleInfoClick(order)}
+                      >
+                        <FontAwesomeIcon icon={faArrowRight} size="2xl" />
+                      </div>
+                    </td>
+                  </tr>
+                ))
+            )}
           </tbody>
         </table>
 
@@ -245,8 +270,33 @@ const PendingPayment = () => {
               {selectedOrder.special_notes || "None"}
             </p>
 
-            <p style={{color: "#06d001", fontSize: "18px"}}>
-              <strong style={{color: "#06d001", fontSize: "18px"}}>Price: </strong> {selectedOrder.price+" LKR"|| "Not set"}
+            <h3>Laundry Bank Details:</h3>
+            {laundryDetails.bank_name ? (
+              <>
+                <p>
+                  <strong>Bank:</strong> {laundryDetails.bank_name}
+                </p>
+                <p>
+                  <strong>Account Name:</strong>{" "}
+                  {laundryDetails.bank_account_holder_name}
+                </p>
+                <p>
+                  <strong>Account Number:</strong>{" "}
+                  {laundryDetails.bank_account_number}
+                </p>
+                <p>
+                  <strong>Branch:</strong> {laundryDetails.bank_branch}
+                </p>
+              </>
+            ) : (
+              <p>No bank details available</p>
+            )}
+
+            <p style={{ color: "#06d001", fontSize: "18px" }}>
+              <strong style={{ color: "#06d001", fontSize: "18px" }}>
+                Price:{" "}
+              </strong>{" "}
+              {selectedOrder.price + " LKR" || "Not set"}
             </p>
 
             <div className="button-group">
@@ -268,27 +318,28 @@ const PendingPayment = () => {
 
         <h2 className="toBeConfirm-text">To be confirmed</h2>
 
-        <table className="pending-confirmation-table">
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Laundry Name</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pendingConfirmationOrders.map((order) => (
-              <tr key={order.id}>
-                <td>{order.id}</td>
-                <td>{getLaundryNameById(order.laundry_id)}</td>{" "}
-                {/* Get laundry name by ID */}
-                <td>
-                  {order.created_time ? order.created_time.slice(0, 10) : "N/A"}
-                </td>
+        {pendingConfirmationOrders.length === 0 ? (
+          <p className="no-orders-message">No pending confirmation orders.</p>
+        ) : (
+          <table className="pending-confirmation-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Laundry Name</th>
+                <th>Requested Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {pendingConfirmationOrders.map((order) => (
+                <tr key={order.id}>
+                  <td>{order.id}</td>
+                  <td>{getLaundryNameById(order.laundry_id)}</td>
+                  <td>{order.created_time.slice(0, 10)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

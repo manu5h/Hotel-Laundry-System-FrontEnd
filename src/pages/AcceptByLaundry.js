@@ -5,6 +5,7 @@ import { faStar as faStarFilled } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
 import NavBar from "../components/NavBar";
 import "../styles/AcceptbyLaundry.css";
+import { API_ENDPOINT } from "../config";
 
 const AcceptByLaundry = () => {
   const laundryId = localStorage.getItem("userID");
@@ -19,7 +20,10 @@ const AcceptByLaundry = () => {
     const fetchOrders = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/laundry/${laundryId}/orders?orderStatus=1`,
+          API_ENDPOINT.GET_Orders_By_Laundry_Id.replace(
+            ":laundry_id",
+            laundryId
+          ),
           {
             method: "GET",
             headers: {
@@ -60,7 +64,10 @@ const AcceptByLaundry = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/laundry/${laundryId}/order/${selectedOrder.id}/accept`,
+        API_ENDPOINT.CONFIRM_order_laundry.replace(
+          ":laundry_id",
+          laundryId
+        ).replace(":order_id", selectedOrder.id),
         {
           method: "POST",
           headers: {
@@ -93,7 +100,10 @@ const AcceptByLaundry = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/laundry/${laundryId}/order/${selectedOrder.id}/decline`,
+        API_ENDPOINT.DECLINE_order_laundry.replace(
+          ":laundry_id",
+          laundryId
+        ).replace(":order_id", selectedOrder.id),
         {
           method: "PUT",
           headers: {
@@ -120,33 +130,37 @@ const AcceptByLaundry = () => {
     <div className="accept-by-laundry-main-container">
       <NavBar />
       <div className="accept-by-laundry">
-        <h2>Accept Orders</h2>
+        <h2>Pending Orders</h2>
         {error && <p className="error-message">{error}</p>}
 
-        <table className="accept-by-laundry-table">
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Hotel Name</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map(
-              (order) =>
-                order.orderStatus === 1 && (
+        {orders.length === 0 ? (
+          <p>No orders available.</p>
+        ) : (
+          <table className="accept-by-laundry-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Hotel Name</th>
+                <th>Date</th>
+                <th>Actions</th> {/* Add a column header for actions */}
+              </tr>
+            </thead>
+            <tbody>
+              {orders
+                .filter((order) => order.orderStatus === 1) // Filter orders based on status
+                .map((order) => (
                   <tr
                     key={order.id}
                     style={{
                       backgroundColor:
-                        selectedOrderId === order.id ? "#06D001" : "#025a97",
+                        selectedOrderId === order.id ? "#758694" : "#025a97",
                     }}
                   >
                     <td>{order.id}</td>
                     <td>{order.hotel_details.hotel_name || "N/A"}</td>
                     <td>
                       {order.created_time
-                        ? `${order.created_time.slice(0, 10)}` // Extract YYYY-MM-DD
+                        ? `${order.created_time.slice(0, 10)}`
                         : "N/A"}
                     </td>
                     <td style={{ position: "relative" }}>
@@ -158,10 +172,18 @@ const AcceptByLaundry = () => {
                       </div>
                     </td>
                   </tr>
-                )
-            )}
-          </tbody>
-        </table>
+                ))}
+              {orders.filter((order) => order.orderStatus === 1).length ===
+                0 && (
+                <tr>
+                  <td colSpan="4" style={{ textAlign: "center" }}>
+                    No pending orders available.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
 
         {selectedOrder && (
           <div className="order-details-modal">

@@ -89,7 +89,7 @@ useEffect(() => {
 
       console.log("Order created successfully!");
       alert("Order created successfully!");
-      navigate("/", { replace: true });
+      navigate("/hotel/dashboard", { replace: true });
     } catch (error) {
       console.log("body=" + body);
       console.error(error);
