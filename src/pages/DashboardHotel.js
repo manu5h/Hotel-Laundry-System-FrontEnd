@@ -89,7 +89,7 @@ const HotelDashboard = () => {
         <Link to="/dashboard">
           <img src={box3} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/dashboard">
+        <Link to="/HotelHistory">
           <img src={box4} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
       </div>

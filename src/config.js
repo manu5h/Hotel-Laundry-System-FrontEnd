@@ -77,7 +77,11 @@ const API_ENDPOINT = {
   GET_Riders: `${API_BASE_URL}/laundry/:laundry_id/riders`,
 
   //get riders
-  SET_Riders: `${API_BASE_URL}/rider/pickupRider`,
+  SET_Pickup_Riders: `${API_BASE_URL}/rider/pickupRider`,
+  SET_Drop_Riders: `${API_BASE_URL}/rider/dropRider`,
+
+  //Add review
+  ADD_Review: `${API_BASE_URL}/hotel/:hotel_id/:order_id/addReview`,
 };
 
 export { API_BASE_URL, API_ENDPOINT };

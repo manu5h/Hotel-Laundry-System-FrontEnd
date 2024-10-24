@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import "../styles/AddPickupRider.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { API_ENDPOINT } from "../config";
 
-const AddPickupRider = () => {
+const AddDropRider = () => {
   const laundryId = localStorage.getItem("userID");
   const storedToken = localStorage.getItem("token");
   const [orders, setOrders] = useState([]);
@@ -22,7 +20,10 @@ const AddPickupRider = () => {
     const fetchOrders = async () => {
       try {
         const response = await fetch(
-          API_ENDPOINT.GET_Orders_By_Laundry_Id.replace(":laundry_id", laundryId),
+          API_ENDPOINT.GET_Orders_By_Laundry_Id.replace(
+            ":laundry_id",
+            laundryId
+          ),
           {
             method: "GET",
             headers: {
@@ -40,12 +41,11 @@ const AddPickupRider = () => {
         setOrders(data.orders || []);
         const statusThreeOrders = data.orders.filter(
           (order) =>
-            order.orderStatus === 3 && order.pickup_delivery_rider_id === null
+            order.orderStatus === 6 && order.drop_delivery_rider_id === null
         );
         setFilteredOrders(statusThreeOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
-        
       }
     };
 
@@ -78,10 +78,10 @@ const AddPickupRider = () => {
     }
   };
 
-  // Verify payment for the selected order and fetch riders
-  const handleVerifyPayment = async (orderId) => {
+  // get confimations for the selected order and fetch riders
+  const getConfirmation = async (orderId) => {
     const confirmed = window.confirm(
-      "Are you done with the payment? Please confirm to proceed."
+      "Are you sure the order is ready to be dropped off at the hotel? Please confirm to proceed."
     );
 
     if (!confirmed) return;
@@ -119,7 +119,7 @@ const AddPickupRider = () => {
     if (!confirmed) return;
 
     try {
-      const response = await fetch(API_ENDPOINT.SET_Pickup_Riders, {
+      const response = await fetch(API_ENDPOINT.SET_Drop_Riders, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${storedToken}`,
@@ -127,7 +127,7 @@ const AddPickupRider = () => {
         },
         body: JSON.stringify({
           orderId: selectedOrder,
-          pickupDeliveryRiderId: riderId,
+          dropDeliveryRiderId: riderId,
         }),
       });
 
@@ -147,7 +147,7 @@ const AddPickupRider = () => {
     <div className="add-pickup-rider-container">
       <NavBar />
       <div className="add-rider-content">
-        <h2>Verify Payment</h2>
+        <h2>Add Drop Rider</h2>
         {error && <p className="error-message">{error}</p>}
 
         <table className="payment-verified-order-table">
@@ -155,7 +155,7 @@ const AddPickupRider = () => {
             <tr>
               <th>Order ID</th>
               <th>Amount</th>
-              <th>Paid On</th>
+              <th>Laundry Done</th>
               <th></th>
             </tr>
           </thead>
@@ -168,12 +168,14 @@ const AddPickupRider = () => {
                     <td>{order.price} LKR</td>
                     <td>
                       {new Date(
-                        order.confirmedByHotelDateTime
+                        order.laundryCompletedDateTime
                       ).toLocaleDateString()}
                     </td>
                     <td className="see-more-btn">
                       <button onClick={() => handleToggleExpand(order.id)}>
-                        {expandedOrders.has(order.id) ? "Collapse" : "See more..."}
+                        {expandedOrders.has(order.id)
+                          ? "Collapse"
+                          : "See more..."}
                       </button>
                     </td>
                     <td className="verify-payment-btn">
@@ -181,7 +183,7 @@ const AddPickupRider = () => {
                         className={
                           verifiedOrders.has(order.id) ? "verified-btn" : ""
                         }
-                        onClick={() => handleVerifyPayment(order.id)}
+                        onClick={() => getConfirmation(order.id)}
                         disabled={verifiedOrders.has(order.id)}
                         style={{
                           color: verifiedOrders.has(order.id)
@@ -190,48 +192,47 @@ const AddPickupRider = () => {
                           opacity: verifiedOrders.has(order.id) ? 0.8 : 1, // Optional: Change opacity for better visibility
                         }}
                       >
-                        {verifiedOrders.has(order.id) ? "Verified" : "Verify"}
+                        {verifiedOrders.has(order.id) ? "Add" : "Add"}
                       </button>
                     </td>
                   </tr>
 
                   {/* Order details rendered outside of the table to avoid layout shift */}
                   {expandedOrders.has(order.id) && (
-                    <tr className="expanded-order-row" style={{backgroundColor: "#fff"}}>
+                    <tr
+                      className="expanded-order-row"
+                      style={{ backgroundColor: "#fff" }}
+                    >
                       <td colSpan="5">
                         <div className="pickup-order-details-modal">
-                          <h4 style={{ color: "red" }}>
-                            Caution! If you have any concerns about the payment
-                            <br />
-                            contact the hotel.
-                          </h4>
                           <h3>Order Details</h3>
-
                           <p>
                             <strong>Order ID:</strong> {order.id}
                           </p>
-                          <strong>Clothing Items:</strong>
-                          <ul>
-                            {order.clothingItems.map((item) => {
-                              let itemDetails = `${item.category}, ${item.cleaningType}`;
+                          <p>
+                            <strong>Clothing Items:</strong>
+                            <ul>
+                              {order.clothingItems.map((item) => {
+                                let itemDetails = `${item.category}, ${item.cleaningType}`;
 
-                              if (item.pressing_ironing === 1) {
-                                itemDetails += " , Pressing/Ironing";
-                              }
-                              if (item.stain_removal === 1) {
-                                itemDetails += " , Stain Removal";
-                              }
-                              if (item.folding === 1) {
-                                itemDetails += " , Folding";
-                              }
+                                if (item.pressing_ironing === 1) {
+                                  itemDetails += " , Pressing/Ironing";
+                                }
+                                if (item.stain_removal === 1) {
+                                  itemDetails += " , Stain Removal";
+                                }
+                                if (item.folding === 1) {
+                                  itemDetails += " , Folding";
+                                }
 
-                              if (item.special_instructions) {
-                                itemDetails += ` , Special Instructions: ${item.special_instructions}`;
-                              }
+                                if (item.special_instructions) {
+                                  itemDetails += ` , Special Instructions: ${item.special_instructions}`;
+                                }
 
-                              return <li key={item.id}>{itemDetails}</li>;
-                            })}
-                          </ul>
+                                return <li key={item.id}>{itemDetails}</li>;
+                              })}
+                            </ul>
+                          </p>
 
                           <p>
                             <strong>Weight:</strong> {order.weight || "Not set"}
@@ -270,7 +271,7 @@ const AddPickupRider = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="4">No Orders to Verify</td>
+                <td colSpan="4">No orders at the moment</td>
               </tr>
             )}
           </tbody>
@@ -279,8 +280,7 @@ const AddPickupRider = () => {
         {/* Show riders only if payment is verified */}
         {showRiders && selectedOrder && (
           <div>
-            <h3 style={{color: "red"}}>Please note: Verification will be completed after a pickup rider is assigned for this order.</h3>
-            <h2>Assign a Pickup Rider for Order ID: {selectedOrder}</h2>
+            <h2>Assign a Drop Rider for Order ID: {selectedOrder}</h2>
             <table className="rider-table">
               <thead>
                 <tr>
@@ -319,10 +319,9 @@ const AddPickupRider = () => {
             </table>
           </div>
         )}
-        
       </div>
     </div>
   );
 };
 
-export default AddPickupRider;
+export default AddDropRider;

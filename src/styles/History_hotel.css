@@ -1,0 +1,79 @@
+.history-details{
+    margin-left: 40px;
+}
+
+.history-table{
+    width: 100%;
+}
+
+.history-table th{
+    text-align: start;
+    padding-bottom: 20px;
+}
+
+.review-btn{
+    font-family: "Poppins-Medium";
+    width: 130px;
+    padding: 0;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer;
+}
+
+.feedback-section h4{
+    margin: 10px 0 5px 0;
+    color: #919191;
+}
+
+.feedback-section {
+    margin: 30px 0 30px 0;
+    border-radius: 40px;
+    background-color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid #005b96;
+  }
+  
+  .star-rating-container {
+    display: flex;
+    justify-content: space-between;
+    width: 45%;
+    max-width: 520px; /* Adjust this width as needed */
+    margin-bottom: 10px;
+  }
+  
+  .star-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px; /* Same width as the star container */
+  }
+  
+  .star-labels span {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .star-icon {
+    font-size: 24px; /* Adjust the size of the stars */
+    cursor: pointer;
+  }
+
+  .submit-btn{
+    font-size: 16px;
+    padding: 0;
+    width: 155px;
+    margin: 10px;
+  }
+
+  .cancel-btn{
+    border: none;
+    width: 100px;
+    padding: 0;
+    font-size: 14px;
+    color: #000;
+    background-color: #fff;
+  }
+  

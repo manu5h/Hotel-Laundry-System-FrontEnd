@@ -84,7 +84,7 @@ const LaundryDashboard = () => {
 
       <div className="laundry-dashboard-icons-secondRow">
         
-        <Link to="/dashboard">
+        <Link to="/AddDropRider">
           <img src={box4} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/dashboard">
