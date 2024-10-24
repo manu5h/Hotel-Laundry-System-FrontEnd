@@ -11,9 +11,9 @@ const History_hotel = () => {
   const storedToken = localStorage.getItem("token");
   const [completedOrders, setCompletedOrders] = useState([]);
   const [laundryMap, setLaundryMap] = useState({});
-  const [expandedOrders, setExpandedOrders] = useState([]); // For showing items
-  const [reviewingOrderId, setReviewingOrderId] = useState(null); // For showing feedback form
-  const [reviewValue, setReviewValue] = useState(0); // For storing review rating
+  const [expandedOrders, setExpandedOrders] = useState([]); 
+  const [reviewingOrderId, setReviewingOrderId] = useState(null);
+  const [reviewValue, setReviewValue] = useState(0); 
   const [error, setError] = useState("");
 
   useEffect(() => {

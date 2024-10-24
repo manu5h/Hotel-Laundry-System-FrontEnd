@@ -3,12 +3,10 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 import "../styles/Rider_Dashboard.css";
 import { API_ENDPOINT } from "../config";
 import logo from "../assets/images/logo.png";
-import box1 from "../assets/images/Accept_order_btn.png";
-import box2 from "../assets/images/AddPickupRider_btn.png";
-import box3 from "../assets/images/OngoingOrders_btn.png";
-import box4 from "../assets/images/addDropRider_btn.png";
-import box5 from "../assets/images/History_laundry_btn.png";
-import box6 from "../assets/images/createRider_btn.png";
+import box1 from "../assets/images/pickupfromhotel_btn.png";
+import box2 from "../assets/images/droptolaundry_btn.png";
+import box3 from "../assets/images/pickupfromlaundry_btn.png";
+import box4 from "../assets/images/droptohotel_btn.png";
 
 const RiderDashboard = () => {
   const { role } = useParams();
@@ -82,10 +80,10 @@ const RiderDashboard = () => {
       <div className="Rider-dashboard-icons-secondRow">
         
         <Link to="/PickupfromLaundry">
-          <img src={box4} alt="Create-order" style={{ cursor: "pointer" }} />
+          <img src={box3} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/DroptoHotel">
-          <img src={box5} alt="Create-order" style={{ cursor: "pointer" }} />
+          <img src={box4} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
       </div>
 

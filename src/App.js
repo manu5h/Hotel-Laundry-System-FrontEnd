@@ -30,6 +30,7 @@ import PickupfromLaundry from './pages/PickupfromLaundry.js';
 import DroptoHotel from './pages/DroptoHotel.js';
 import AddDropRider from './pages/AddDropRider.js';
 import History_hotel from './pages/History_Hotel.js';
+import OnGoingOrders from './pages/OnGoingOrders_hotel.js';
 
 
 function App() {
@@ -100,6 +101,7 @@ function App() {
           <Route path="/DroptoHotel" element={<DroptoHotel />} />
           <Route path="/AddDropRider" element={<AddDropRider />} />
           <Route path="/HotelHistory" element={<History_hotel />} />
+          <Route path="/OnGoingOrders" element={<OnGoingOrders />} />
         </Route>
       </Routes>
     </Router>
