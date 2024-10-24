@@ -86,10 +86,10 @@ const HotelDashboard = () => {
         <Link to="/PendingPayment">
           <img src={box2} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/dashboard">
+        <Link to="/OnGoingOrders">
           <img src={box3} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/dashboard">
+        <Link to="/HotelHistory">
           <img src={box4} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
       </div>
