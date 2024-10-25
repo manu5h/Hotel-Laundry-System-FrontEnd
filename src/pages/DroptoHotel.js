@@ -95,29 +95,6 @@ const DroptoHotel = () => {
   // Function to handle info icon click
   const handleInfoClick = async (order) => {
     setSelectedOrder(order);
-    try {
-      const response = await fetch(
-        API_ENDPOINT.GET_Laundry_details.replace(
-          ":laundry_id",
-          order.laundry_id
-        ),
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        const data = await response.json();
-      } else {
-        setError("Failed to fetch laundry details.");
-      }
-    } catch (error) {
-      console.error("Error fetching laundry details:", error);
-      setError("Failed to fetch laundry details.");
-    }
   };
 
   const validOrders = orders.filter((order) => order.orderStatus === 7);
@@ -129,6 +106,7 @@ const DroptoHotel = () => {
         backgroundImage: `url(${BG_img})`,
         backgroundSize: "cover",
         minHeight: "110vh",
+        backgroundPosition: "center"
       }}
     >
       <NavBar />

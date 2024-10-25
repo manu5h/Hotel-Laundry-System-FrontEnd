@@ -31,7 +31,9 @@ const OnGoingOrders = () => {
         }
 
         const data = await response.json();
-        setOrders(data.orders);
+        // Filter out completed orders (status = 8)
+        const ongoingOrders = data.orders.filter((order) => order.orderStatus !== 8);
+        setOrders(ongoingOrders);
       } catch (error) {
         console.error("Error fetching ongoing orders:", error);
       }
@@ -95,8 +97,14 @@ const OnGoingOrders = () => {
       { label: "Confirmed", time: order.confirmedByHotelDateTime },
       { label: "Picked up from Hotel", time: order.pickupFromHotelDateTime },
       { label: "Handed to Laundry", time: order.handedToLaundryDateTime },
-      { label: "Laundry Process Completed", time: order.laundryCompletedDateTime },
-      {label: "Picked up from Laundry", time: order.pickupFromLaundryDateTime,},
+      {
+        label: "Laundry Process Completed",
+        time: order.laundryCompletedDateTime,
+      },
+      {
+        label: "Picked up from Laundry",
+        time: order.pickupFromLaundryDateTime,
+      },
       { label: "Order Completed", time: order.orderCompletedDateTime },
     ];
 
@@ -178,14 +186,20 @@ const OnGoingOrders = () => {
                   <td>{laundryMap[order.laundry_id] || "Unknown Laundry"}</td>
                   <td>{order.price} LKR</td>
                   <td>
-                    <button  className="total-item-btn" onClick={() => toggleExpandItems(order.id)}>
+                    <button
+                      className="total-item-btn"
+                      onClick={() => toggleExpandItems(order.id)}
+                    >
                       {expandedItemId === order.id
                         ? "Hide Items"
                         : order.clothingItems?.length}
                     </button>
                   </td>
                   <td>
-                    <button className="add-feedback-btn" onClick={() => toggleExpandStatus(order.id)}>
+                    <button
+                      className="add-feedback-btn"
+                      onClick={() => toggleExpandStatus(order.id)}
+                    >
                       {expandedStatusId === order.id
                         ? "Hide Status"
                         : getCurrentStatus(order)}

@@ -31,7 +31,7 @@ import DroptoHotel from './pages/DroptoHotel.js';
 import AddDropRider from './pages/AddDropRider.js';
 import History_hotel from './pages/History_Hotel.js';
 import OnGoingOrders from './pages/OnGoingOrders_hotel.js';
-
+import OnGoing_Laundry from './pages/OnGoingOrders_laundry.js';
 
 function App() {
   // State to hold the token
@@ -102,6 +102,7 @@ function App() {
           <Route path="/AddDropRider" element={<AddDropRider />} />
           <Route path="/HotelHistory" element={<History_hotel />} />
           <Route path="/OnGoingOrders" element={<OnGoingOrders />} />
+          <Route path="/OnGoingOrders/Laundry" element={<OnGoing_Laundry />} />
         </Route>
       </Routes>
     </Router>
