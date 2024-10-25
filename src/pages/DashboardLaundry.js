@@ -5,10 +5,10 @@ import { API_ENDPOINT } from "../config";
 import logo from "../assets/images/logo.png";
 import box1 from "../assets/images/Accept_order_btn.png";
 import box2 from "../assets/images/AddPickupRider_btn.png";
-import box3 from "../assets/images/OngoingOrders_btn.png";
+import box3 from "../assets/images/OngoingOrders_btn_hotel.png";
 import box4 from "../assets/images/addDropRider_btn.png";
 import box5 from "../assets/images/History_laundry_btn.png";
-import box6 from "../assets/images/createRider_btn.png";
+import box6 from "../assets/images/register_rider_btn.png";
 
 const LaundryDashboard = () => {
   const { role } = useParams();
@@ -77,7 +77,7 @@ const LaundryDashboard = () => {
         <Link to="/confirmPayment">
           <img src={box2} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/dashboard">
+        <Link to="/OnGoingOrders/Laundry">
           <img src={box3} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
       </div>

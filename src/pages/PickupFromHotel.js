@@ -15,28 +15,29 @@ const PickupfromHotel = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      try {
-        const response = await fetch(
-          API_ENDPOINT.GET_Orders_By_Rider_Id.replace(":rider_id", riderID),
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${storedToken}`,
-              "Content-Type": "application/json",
-            },
+        try {
+          const response = await fetch(
+            API_ENDPOINT.GET_Orders_By_Rider_Id.replace(":rider_id", riderID),
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${storedToken}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+    
+          if (response.status !== 200) {
+            throw new Error("Failed to fetch orders");
           }
-        );
-
-        if (response.status !== 200) {
-          throw new Error("Failed to fetch orders");
+    
+          const data = await response.json();
+          const validOrders = data.orders.filter((order) => order.orderStatus === 3);
+          setOrders(validOrders);
+        } catch (error) {
+          console.error("Error fetching orders:", error);
         }
-
-        const data = await response.json();
-        setOrders(data.orders);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      }
-    };
+      };
 
     const fetchLaundries = async () => {
       try {
@@ -72,7 +73,7 @@ const PickupfromHotel = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/order/${orderId}/hotelPickup`, // Corrected URL to include http://
+        `http://localhost:5000/order/${orderId}/hotelPickup`, 
         {
           method: "POST",
           headers: {
@@ -85,7 +86,8 @@ const PickupfromHotel = () => {
       if (!response.ok) {
         throw new Error("Failed to accept order");
       }
-      window.location.reload(); // Reload the page after successful request
+      alert("Order Pickup Succefully!")
+      window.location.reload(); 
     } catch (error) {
       console.error("Error accepting order:", error);
       setError("Failed to accept order.");
@@ -95,32 +97,10 @@ const PickupfromHotel = () => {
   // Function to handle info icon click
   const handleInfoClick = async (order) => {
     setSelectedOrder(order);
-    try {
-      const response = await fetch(
-        API_ENDPOINT.GET_Laundry_details.replace(
-          ":laundry_id",
-          order.laundry_id
-        ),
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        const data = await response.json();
-      } else {
-        setError("Failed to fetch laundry details.");
-      }
-    } catch (error) {
-      console.error("Error fetching laundry details:", error);
-      setError("Failed to fetch laundry details.");
-    }
   };
-
+  
   const validOrders = orders.filter((order) => order.orderStatus === 3);
+
 
   return (
     <div
@@ -129,6 +109,7 @@ const PickupfromHotel = () => {
         backgroundImage: `url(${BG_img})`,
         backgroundSize: "cover",
         minHeight: "110vh",
+        backgroundPosition: "center"
       }}
     >
       <NavBar />
