@@ -82,10 +82,7 @@ const History_hotel = () => {
     }
 
     try {
-      const endpoint = API_ENDPOINT.ADD_Review.replace(
-        ":hotel_id",
-        hotelID
-      ).replace(":order_id", orderId);
+      const endpoint = API_ENDPOINT.ADD_Review.replace(":order_id", orderId);
 
       const response = await fetch(endpoint, {
         method: "POST",

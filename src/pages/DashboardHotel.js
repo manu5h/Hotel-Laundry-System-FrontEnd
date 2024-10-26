@@ -11,10 +11,11 @@ import box4 from "../assets/images/History_laundry_btn.png";
 import CreateOrder from "../assets/images/CreateOrder.png";
 
 const HotelDashboard = () => {
-  const { role } = useParams();
+  const role = localStorage.getItem("userRole");
   const navigate = useNavigate();
-  const [hotelDetails, setHotelDetails] = useState(null); // To store hotel details
-  const [error, setError] = useState(""); // To store any errors
+  const [hotelDetails, setHotelDetails] = useState(null); 
+  const [error, setError] = useState(""); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchHotelDetails = async () => {
@@ -59,10 +60,17 @@ const HotelDashboard = () => {
         setError("An error occurred while fetching hotel details.");
         navigate("/login/Hotel", { replace: true }); // Redirect to login if an error occurs
       }
+      finally {
+        setTimeout(() => setLoading(false), 150); // Delay added when render all components
+      }
     };
 
     fetchHotelDetails();
   }, [navigate]);
+
+  if (loading) {
+    return <div className="loading-indicator">Loading...</div>; // Display loading indicator
+  }
 
   return (
     <div className="hotel-dashboard">
@@ -89,7 +97,7 @@ const HotelDashboard = () => {
         <Link to="/OnGoingOrders">
           <img src={box3} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/HotelHistory">
+        <Link to="/History/Hotel">
           <img src={box4} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
       </div>

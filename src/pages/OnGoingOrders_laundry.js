@@ -42,7 +42,6 @@ const OnGoing_Laundry = () => {
         setOrders(validOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
-        setError("Failed to fetch orders.");
       }
     };
 
@@ -214,7 +213,7 @@ const OnGoing_Laundry = () => {
             </ul>
 
             <p>
-              <strong>Weight:</strong> {selectedOrder.weight || "Not set"}
+              <strong>Weight:</strong> {selectedOrder.weight +"kg" || "Not set"}
             </p>
             <p>
               <strong>Special Notes:</strong>{" "}

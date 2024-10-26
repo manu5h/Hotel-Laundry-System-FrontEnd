@@ -9,10 +9,11 @@ import box3 from "../assets/images/pickupfromlaundry_btn.png";
 import box4 from "../assets/images/droptohotel_btn.png";
 
 const RiderDashboard = () => {
-  const { role } = useParams();
+  const role = localStorage.getItem("userRole");
   const navigate = useNavigate();
   const [RiderDetails, setRiderDetails] = useState(null); // To store Laundry details
-  const [error, setError] = useState(""); // To store any errors
+  const [error, setError] = useState(""); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchRiderDetails = async () => {
@@ -55,21 +56,28 @@ const RiderDashboard = () => {
       } catch (error) {
         console.error("Error fetching Rider details:", error);
         setError("An error occurred while fetching Rider details.");
-        navigate("/login/Delivery", { replace: true }); 
+        navigate("/login/Delivery", { replace: true });
+      }
+      finally {
+        setTimeout(() => setLoading(false), 150); // Delay added when render all components
       }
     };
 
     fetchRiderDetails();
   }, [navigate]);
 
+  if (loading) {
+    return <div className="loading-indicator">Loading...</div>; // Display loading indicator
+  }
+
   return (
     <div className="Rider-dashboard">
       <div className="dashboard-logo">
-        <img src={logo} alt="Logo"/>
+        <img src={logo} alt="Logo" />
         <button onClick={() => navigate(`/${role}/Settings`)}>Settings</button>
       </div>
       <div className="Rider-dashboard-icons-secondRow">
-      <Link to="/PickupfromHotel">
+        <Link to="/PickupfromHotel">
           <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/DroptoLaundry">
@@ -78,7 +86,6 @@ const RiderDashboard = () => {
       </div>
 
       <div className="Rider-dashboard-icons-secondRow">
-        
         <Link to="/PickupfromLaundry">
           <img src={box3} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>

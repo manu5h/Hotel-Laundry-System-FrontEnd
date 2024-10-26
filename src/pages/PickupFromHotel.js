@@ -94,7 +94,7 @@ const PickupfromHotel = () => {
     }
   };
 
-  // Function to handle info icon click
+  // Function to handle info click
   const handleInfoClick = async (order) => {
     setSelectedOrder(order);
   };
