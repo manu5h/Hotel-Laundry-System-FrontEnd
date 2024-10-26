@@ -30,9 +30,9 @@ const DroptoHotel = () => {
         if (response.status !== 200) {
           throw new Error("Failed to fetch orders");
         }
-
         const data = await response.json();
-        setOrders(data.orders);
+        const validOrders = data.orders.filter((order) => order.orderStatus === 7);
+        setOrders(validOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
@@ -101,7 +101,7 @@ const DroptoHotel = () => {
 
   return (
     <div
-      className="rider-process-main-container"
+      className="rider-process-main-container" //
       style={{
         backgroundImage: `url(${BG_img})`,
         backgroundSize: "cover",

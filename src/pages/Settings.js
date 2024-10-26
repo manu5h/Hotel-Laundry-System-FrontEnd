@@ -367,7 +367,8 @@ const Settings = () => {
       sessionStorage.clear();
 
       // Navigate to the StartPage
-      navigate("/", { replace: true });
+      navigate("/StartingPage", { replace: true });
+      window.location.reload();
     }
   };
 

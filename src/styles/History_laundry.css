@@ -1,0 +1,60 @@
+.chart-container {
+    max-width: 300px;
+    margin: 10px auto; /* Centers the chart and adds some spacing */
+  }
+  
+  .chart-container canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .performance-row{
+    justify-content: space-evenly;
+    display: flex;
+  }
+
+  .total-orders{
+    align-content: center;
+    background-color: #7FC1B3;
+    border-radius: 10px;
+    text-align: center;
+    height: 60px;
+    font-size: 20px;
+    color: #025a97;
+    font-weight: bold;
+  }
+
+  .laundry-details p{
+    align-content: center;
+    background-color: #7FC1B3;
+    border-radius: 10px;
+    text-align: center;
+    height: 70px;
+    font-size: 20px;
+    color: #025a97;
+    font-weight: bold;
+  }
+
+  .total-earnings{
+    align-content: center;
+    background-color: #7FC1B3;
+    border-radius: 10px;
+    text-align: center;
+    height: 60px;
+    font-size: 20px;
+    color: #025a97;
+    font-weight: bold;
+  }
+
+  .text-displays{
+    width: 25%;
+  }
+
+  .total-stars{
+    display: flex;
+    width: 85%;
+    justify-content: center;
+  }
+
+  
+  

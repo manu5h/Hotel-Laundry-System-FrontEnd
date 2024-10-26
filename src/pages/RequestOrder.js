@@ -18,7 +18,6 @@ const RequestLaundry = () => {
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data.laundries)) {
-          // Update to access 'laundries' array correctly from the response
           setLaundries(data.laundries);
         } else {
           console.error("Unexpected response data:", data);

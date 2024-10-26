@@ -11,10 +11,11 @@ import box5 from "../assets/images/History_laundry_btn.png";
 import box6 from "../assets/images/register_rider_btn.png";
 
 const LaundryDashboard = () => {
-  const { role } = useParams();
+  const role = localStorage.getItem("userRole");
   const navigate = useNavigate();
   const [LaundryDetails, setLaundryDetails] = useState(null); // To store Laundry details
-  const [error, setError] = useState(""); // To store any errors
+  const [error, setError] = useState(""); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLaundryDetails = async () => {
@@ -59,19 +60,26 @@ const LaundryDashboard = () => {
         setError("An error occurred while fetching Laundry details.");
         navigate("/login/laundry", { replace: true }); // Redirect to login if an error occurs
       }
+      finally {
+        setTimeout(() => setLoading(false), 150); // Delay added when render all components
+      }
     };
 
     fetchLaundryDetails();
   }, [navigate]);
 
+  if (loading) {
+    return <div className="loading-indicator">Loading...</div>; // Display loading indicator
+  }
+
   return (
     <div className="laundry-dashboard">
       <div className="dashboard-logo">
-        <img src={logo} alt="Logo"/>
+        <img src={logo} alt="Logo" />
         <button onClick={() => navigate(`/${role}/Settings`)}>Settings</button>
       </div>
       <div className="laundry-dashboard-icons-secondRow">
-      <Link to="/AcceptOrders">
+        <Link to="/AcceptOrders">
           <img src={box1} alt="Add-to-basket" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/confirmPayment">
@@ -83,11 +91,10 @@ const LaundryDashboard = () => {
       </div>
 
       <div className="laundry-dashboard-icons-secondRow">
-        
         <Link to="/AddDropRider">
           <img src={box4} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
-        <Link to="/dashboard">
+        <Link to="/History/Laundry">
           <img src={box5} alt="Create-order" style={{ cursor: "pointer" }} />
         </Link>
         <Link to="/RegisterRider">

@@ -32,7 +32,8 @@ const PickupfromLaundry = () => {
         }
 
         const data = await response.json();
-        setOrders(data.orders);
+        const validOrders = data.orders.filter((order) => order.orderStatus === 6);
+          setOrders(validOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
