@@ -15,7 +15,9 @@ const PendingPayment = () => {
 
   const [orders, setOrders] = useState([]);
   const [laundryDetails, setLaundryDetails] = useState({});
-  const [pendingConfirmationOrders, setPendingConfirmationOrders] = useState([]);
+  const [pendingConfirmationOrders, setPendingConfirmationOrders] = useState(
+    []
+  );
   const [laundries, setLaundries] = useState([]);
   const [error, setError] = useState("");
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -27,39 +29,40 @@ const PendingPayment = () => {
     localStorage.setItem("orderID", orderId);
 
     try {
-        // Create a checkout session
-        const response = await fetch("http://localhost:5000/payment/create-checkout-session", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ orderId, price }), // Include price here
-        });
-
-        // Check for server response issues
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Checkout session error response:", errorText);
-            throw new Error("Failed to create checkout session");
+      // Create a checkout session
+      const response = await fetch(
+        "http://localhost:5000/payment/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ orderId, price }), // Include price here
         }
+      );
 
-        const session = await response.json();
+      // Check for server response issues
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Checkout session error response:", errorText);
+        throw new Error("Failed to create checkout session");
+      }
 
-        // Redirect to Stripe Checkout
-        const { error } = await stripe.redirectToCheckout({
-            sessionId: session.id,
-        });
+      const session = await response.json();
 
-        if (error) {
-            console.error("Stripe checkout error:", error);
-        }
+      // Redirect to Stripe Checkout
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (error) {
+        console.error("Stripe checkout error:", error);
+      }
     } catch (error) {
-        console.error("Error in payment and accept:", error);
-        setError("Payment process failed. Please try again.");
+      console.error("Error in payment and accept:", error);
+      setError("Payment process failed. Please try again.");
     }
-};
-
-
+  };
 
   const fetchOrders = async () => {
     try {
@@ -78,7 +81,9 @@ const PendingPayment = () => {
 
       const data = await response.json();
       setOrders(data.orders);
-      const pendingOrders = data.orders.filter((order) => order.orderStatus === 1);
+      const pendingOrders = data.orders.filter(
+        (order) => order.orderStatus === 1
+      );
       setPendingConfirmationOrders(pendingOrders);
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -114,11 +119,13 @@ const PendingPayment = () => {
   const handleAccept = async () => {
     if (!selectedOrder) return;
 
-    const confirmed = window.confirm("Confirm payment completed to accept this order.");
+    const confirmed = window.confirm(
+      "Confirm payment completed to accept this order."
+    );
     if (!confirmed) return;
 
     try {
-      await handlePaymentAndAccept(selectedOrder.id, selectedOrder.price); 
+      await handlePaymentAndAccept(selectedOrder.id, selectedOrder.price);
     } catch (error) {
       console.error("Error accepting order:", error);
       setError("Order acceptance failed.");
@@ -126,12 +133,17 @@ const PendingPayment = () => {
   };
 
   const handleDecline = async (orderId) => {
-    const confirmed = window.confirm("Are you sure you want to decline this order?");
+    const confirmed = window.confirm(
+      "Are you sure you want to decline this order?"
+    );
     if (!confirmed) return;
 
     try {
       const response = await fetch(
-        API_ENDPOINT.DECLINE_order_hotel.replace(":hotel_id", hotelId).replace(":order_id", orderId),
+        API_ENDPOINT.DECLINE_order_hotel.replace(":hotel_id", hotelId).replace(
+          ":order_id",
+          orderId
+        ),
         {
           method: "PUT",
           headers: {
@@ -143,7 +155,9 @@ const PendingPayment = () => {
 
       if (!response.ok) throw new Error("Failed to decline order");
 
-      alert("Order declined successfully. You can now assign it to a different laundry.");
+      alert(
+        "Order declined successfully. You can now assign it to a different laundry."
+      );
       window.location.reload();
     } catch (error) {
       console.error("Error declining order:", error);
@@ -156,7 +170,10 @@ const PendingPayment = () => {
 
     try {
       const response = await fetch(
-        API_ENDPOINT.GET_Laundry_details.replace(":laundry_id", order.laundry_id),
+        API_ENDPOINT.GET_Laundry_details.replace(
+          ":laundry_id",
+          order.laundry_id
+        ),
         {
           method: "GET",
           headers: {
@@ -202,22 +219,33 @@ const PendingPayment = () => {
           <tbody>
             {orders.filter((order) => order.orderStatus === 2).length === 0 ? (
               <tr>
-                <td colSpan="5" style={{ textAlign: "center" }}>No pending orders.</td>
+                <td colSpan="5" style={{ textAlign: "center" }}>
+                  No pending orders.
+                </td>
               </tr>
             ) : (
-              orders.filter((order) => order.orderStatus === 2).map((order) => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
-                  <td>{getLaundryNameById(order.laundry_id)}</td>
-                  <td>{order.created_time ? order.created_time.slice(0, 10) : "N/A"}</td>
-                  <td>{order.price ? `${order.price} LKR` : "N/A"}</td>
-                  <td style={{ position: "relative" }}>
-                    <div className="arrow-container" onClick={() => handleInfoClick(order)}>
-                      <FontAwesomeIcon icon={faArrowRight} size="2xl" />
-                    </div>
-                  </td>
-                </tr>
-              ))
+              orders
+                .filter((order) => order.orderStatus === 2)
+                .map((order) => (
+                  <tr key={order.id}>
+                    <td>{order.id}</td>
+                    <td>{getLaundryNameById(order.laundry_id)}</td>
+                    <td>
+                      {order.created_time
+                        ? order.created_time.slice(0, 10)
+                        : "N/A"}
+                    </td>
+                    <td>{order.price ? `${order.price} LKR` : "N/A"}</td>
+                    <td style={{ position: "relative" }}>
+                      <div
+                        className="arrow-container"
+                        onClick={() => handleInfoClick(order)}
+                      >
+                        <FontAwesomeIcon icon={faArrowRight} size="2xl" />
+                      </div>
+                    </td>
+                  </tr>
+                ))
             )}
           </tbody>
         </table>
@@ -225,26 +253,64 @@ const PendingPayment = () => {
         {selectedOrder && (
           <div className="order-details-modal">
             <h3>Order Details</h3>
-            <p><strong>Order ID:</strong> {selectedOrder.id || "Not set"}</p>
+            <p>
+              <strong>Order ID:</strong> {selectedOrder.id || "Not set"}
+            </p>
             <h4>Clothing Items:</h4>
             <ul>
               {selectedOrder.clothingItems.map((item) => {
                 let itemDetails = `${item.category}, ${item.cleaningType}`;
-                if (item.pressing_ironing === 1) itemDetails += ", Pressing/Ironing";
+                if (item.pressing_ironing === 1)
+                  itemDetails += ", Pressing/Ironing";
                 if (item.stain_removal === 1) itemDetails += ", Stain Removal";
                 if (item.folding === 1) itemDetails += ", Folding";
-                if (item.special_instructions) itemDetails += `, Special Instructions: ${item.special_instructions}`;
+                if (item.special_instructions)
+                  itemDetails += `, Special Instructions: ${item.special_instructions}`;
                 return <li key={item.id}>{itemDetails}</li>;
               })}
             </ul>
-            <p><strong>Weight:</strong> {selectedOrder.weight || "Not set"}</p>
-            <p><strong>Special Notes:</strong> {selectedOrder.special_notes || "None"}</p>
+            <p>
+              <strong>Weight:</strong> {selectedOrder.weight || "Not set"}
+            </p>
+            <p>
+              <strong>Special Notes:</strong>{" "}
+              {selectedOrder.special_notes || "None"}
+            </p>
 
             <div className="modal-actions">
-              <button style={{ width: "270px" }} onClick={handleAccept}>Accept & Pay via STRIPE</button>
-              <button onClick={() => handleDecline(selectedOrder.id)}>Decline</button>
+              <button style={{ width: "270px" }} onClick={handleAccept}>
+                Accept & Pay via STRIPE
+              </button>
+              <button onClick={() => handleDecline(selectedOrder.id)}>
+                Decline
+              </button>
             </div>
           </div>
+        )}
+
+        <h2 className="toBeConfirm-text">To be confirmed</h2>
+
+        {pendingConfirmationOrders.length === 0 ? (
+          <p className="no-orders-message">No pending confirmation orders.</p>
+        ) : (
+          <table className="pending-confirmation-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Laundry Name</th>
+                <th>Requested Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pendingConfirmationOrders.map((order) => (
+                <tr key={order.id}>
+                  <td>{order.id}</td>
+                  <td>{getLaundryNameById(order.laundry_id)}</td>
+                  <td>{order.created_time.slice(0, 10)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
       </div>
     </div>
