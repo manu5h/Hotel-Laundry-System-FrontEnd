@@ -33,6 +33,7 @@ import History_hotel from './pages/History_Hotel.js';
 import OnGoingOrders from './pages/OnGoingOrders_hotel.js';
 import OnGoing_Laundry from './pages/OnGoingOrders_laundry.js';
 import LaundryHistory from './pages/History_laundry.js';
+import PaymentSuccess from './pages/PaymentSuccess'; // Import the new PaymentSuccess component
 
 function App() {
   // State to hold the token
@@ -106,6 +107,7 @@ function App() {
           <Route path="/OnGoingOrders" element={<OnGoingOrders />} />
           <Route path="/OnGoingOrders/Laundry" element={<OnGoing_Laundry />} />
           <Route path="/History/Laundry" element={<LaundryHistory />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
         </Route>
       </Routes>
     </Router>

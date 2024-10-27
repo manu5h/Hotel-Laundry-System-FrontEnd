@@ -14,10 +14,7 @@ const RegisterLaundry = () => {
   const [phone_number, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [nearest_city, setNearestCity] = useState("");
-  const [bank_name, setbank_name] = useState("");
-  const [bank_account_number, setbank_account_number] = useState("");
-  const [bank_account_holder_name, setbank_account_holder_name] = useState("");
-  const [bank_branch, setbank_branch] = useState("");
+
 
   // State for handling errors and loading
   const [error, setError] = useState("");
@@ -82,10 +79,6 @@ const RegisterLaundry = () => {
       phone_number,
       address,
       nearest_city,
-      bank_name,
-      bank_account_number,
-      bank_account_holder_name,
-      bank_branch
     };
 
     // Set loading state
@@ -188,45 +181,6 @@ const RegisterLaundry = () => {
                 />
               </div>
 
-              <div className="inputBox">
-                <input
-                  type="text"
-                  required
-                  placeholder="Account number"
-                  value={bank_account_number}
-                  onChange={(e) => setbank_account_number(e.target.value)}
-                />
-              </div>
-
-              <div className="inputBox">
-                <input
-                  type="text"
-                  required
-                  placeholder="Account holder name"
-                  value={bank_account_holder_name}
-                  onChange={(e) => setbank_account_holder_name(e.target.value)}
-                />
-              </div>
-
-              <div className="inputBox">
-                <input
-                  type="text"
-                  required
-                  placeholder="Bank"
-                  value={bank_name}
-                  onChange={(e) => setbank_name(e.target.value)}
-                />
-              </div>
-
-              <div className="inputBox">
-                <input
-                  type="text"
-                  required
-                  placeholder="Branch"
-                  value={bank_branch}
-                  onChange={(e) => setbank_branch(e.target.value)}
-                />
-              </div>
 
               {/* Submit button */}
               <div className="inputBox">

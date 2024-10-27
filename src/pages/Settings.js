@@ -28,9 +28,6 @@ const Settings = () => {
     address: false,
     nearest_city: false,
     laundry_name: false,
-    bank_name: false,
-    bank_account_number: false,
-    bank_account_holder_name: false,
     name: false,
     NIC: false,
   });
@@ -42,10 +39,6 @@ const Settings = () => {
   const [address, setAddress] = useState("");
   const [nearest_city, setNearestCity] = useState("");
   const [laundry_name, setLaundryName] = useState("");
-  const [bank_name, setBankName] = useState("");
-  const [bank_account_number, setBankAccountNumber] = useState("");
-  const [bank_account_holder_name, setBankAccountHolderName] = useState("");
-  const [bank_branch, setbankBranch] = useState("");
   const [name, setName] = useState("");
   const [NIC, setNIC] = useState("");
 
@@ -95,10 +88,6 @@ const Settings = () => {
         setPhoneNumber(data.laundry.phone_number);
         setAddress(data.laundry.address);
         setNearestCity(data.laundry.nearest_city);
-        setBankName(data.laundry.bank_name);
-        setBankAccountNumber(data.laundry.bank_account_number);
-        setBankAccountHolderName(data.laundry.bank_account_holder_name);
-        setbankBranch(data.laundry.bank_branch);
       } else {
         setEmail(data.rider.email);
         setName(data.rider.name);
@@ -141,10 +130,6 @@ const Settings = () => {
     } else if (role === "Laundry") {
       inputs.push(
         { value: laundry_name, field: "Laundry Name" },
-        { value: bank_name, field: "Bank Name" },
-        { value: bank_account_number, field: "Bank Account Number" },
-        { value: bank_account_holder_name, field: "Bank Account Holder Name" },
-        { value: bank_branch, field: "Branch" },
         { value: nearest_city, field: "Nearest City" }
       );
     } else {
@@ -186,10 +171,6 @@ const Settings = () => {
         phone_number,
         address,
         nearest_city,
-        bank_name,
-        bank_account_number,
-        bank_account_holder_name,
-        bank_branch,
       };
     } else {
       url = API_ENDPOINT.UPDATE_DELIVERY;
@@ -542,75 +523,6 @@ const Settings = () => {
                       />
                       <p onClick={() => toggleEditMode("nearest_city")}>
                         {isEditing.nearest_city ? "Done" : "Edit"}
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="inputBox-settings">
-                      <p className="Field-name">Bank Name</p>
-                      <input
-                        type="text"
-                        readOnly={!isEditing.bank_name}
-                        placeholder="Bank Name"
-                        value={bank_name}
-                        onChange={(e) => setBankName(e.target.value)}
-                        maxLength={20}
-                      />
-                      <p onClick={() => toggleEditMode("bank_name")}>
-                        {isEditing.bank_name ? "Done" : "Edit"}
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="inputBox-settings">
-                      <p className="Field-name">Bank Account Number</p>
-                      <input
-                        type="text"
-                        readOnly={!isEditing.bank_account_number}
-                        placeholder="Bank Account Number"
-                        value={bank_account_number}
-                        onChange={(e) => setBankAccountNumber(e.target.value)}
-                      />
-                      <p onClick={() => toggleEditMode("bank_account_number")}>
-                        {isEditing.bank_account_number ? "Done" : "Edit"}
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="inputBox-settings">
-                      <p className="Field-name">Bank Account Holder Name</p>
-                      <input
-                        type="text"
-                        readOnly={!isEditing.bank_account_holder_name}
-                        placeholder="Bank Account Holder Name"
-                        value={bank_account_holder_name}
-                        maxLength={20}
-                        onChange={(e) =>
-                          setBankAccountHolderName(e.target.value)
-                        }
-                      />
-                      <p
-                        onClick={() =>
-                          toggleEditMode("bank_account_holder_name")
-                        }
-                      >
-                        {isEditing.bank_account_holder_name ? "Done" : "Edit"}
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="inputBox-settings">
-                      <p className="Field-name">Account Branch</p>
-                      <input
-                        type="text"
-                        readOnly={!isEditing.bank_branch}
-                        placeholder="Account Branch"
-                        value={bank_branch}
-                        maxLength={20}
-                        onChange={(e) => setbankBranch(e.target.value)}
-                      />
-                      <p onClick={() => toggleEditMode("bank_branch")}>
-                        {isEditing.bank_branch ? "Done" : "Edit"}
                       </p>
                     </div>
                   </li>

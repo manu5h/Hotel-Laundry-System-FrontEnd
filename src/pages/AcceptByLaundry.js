@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { faStar as faStarFilled } from "@fortawesome/free-solid-svg-icons";
-import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
 import NavBar from "../components/NavBar";
 import "../styles/AcceptbyLaundry.css";
 import { API_ENDPOINT } from "../config";
@@ -41,21 +39,18 @@ const AcceptByLaundry = () => {
         setOrders(data.orders || []); // Assuming data.orders is the correct path
       } catch (error) {
         console.error("Error fetching orders:", error);
-        
       }
     };
 
     fetchOrders();
   }, [laundryId, storedToken]);
 
-  // Function to handle info icon click
   const handleInfoClick = (order) => {
     setSelectedOrder(order);
     setAmount(""); // Reset amount when a new order is selected
     setSelectedOrderId(order.id); // Set selected order ID
   };
 
-  // Function to confirm the order
   const handleConfirm = async () => {
     const confirmed = window.confirm(
       "Are you sure you want to confirm this order?"
@@ -91,7 +86,6 @@ const AcceptByLaundry = () => {
     }
   };
 
-  // Function to decline the order
   const handleDecline = async () => {
     const confirmed = window.confirm(
       "Are you sure you want to decline this order?"
@@ -126,6 +120,12 @@ const AcceptByLaundry = () => {
     }
   };
 
+  // Function to validate amount
+  const isValidAmount = (value) => {
+    const amountValue = parseInt(value);
+    return !isNaN(amountValue) && amountValue >= 150; // Minimum amount is 150 LKR
+  };
+
   return (
     <div className="accept-by-laundry-main-container">
       <NavBar />
@@ -142,12 +142,12 @@ const AcceptByLaundry = () => {
                 <th>Order ID</th>
                 <th>Hotel Name</th>
                 <th>Date</th>
-                <th>Actions</th> {/* Add a column header for actions */}
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {orders
-                .filter((order) => order.orderStatus === 1) // Filter orders based on status
+                .filter((order) => order.orderStatus === 1)
                 .map((order) => (
                   <tr
                     key={order.id}
@@ -173,8 +173,7 @@ const AcceptByLaundry = () => {
                     </td>
                   </tr>
                 ))}
-              {orders.filter((order) => order.orderStatus === 1).length ===
-                0 && (
+              {orders.filter((order) => order.orderStatus === 1).length === 0 && (
                 <tr>
                   <td colSpan="4" style={{ textAlign: "center" }}>
                     No pending orders available.
@@ -194,10 +193,7 @@ const AcceptByLaundry = () => {
             <h4>Clothing Items:</h4>
             <ul>
               {selectedOrder.clothingItems.map((item) => {
-                // Start with the category and cleaning type
                 let itemDetails = `${item.category}, ${item.cleaningType}`;
-
-                // Append additional services if applicable
                 if (item.pressing_ironing === 1) {
                   itemDetails += " , Pressing/Ironing";
                 }
@@ -207,12 +203,9 @@ const AcceptByLaundry = () => {
                 if (item.folding === 1) {
                   itemDetails += " , Folding";
                 }
-
-                // Append special instructions if they exist
                 if (item.special_instructions) {
                   itemDetails += ` , Special Instructions: ${item.special_instructions}`;
                 }
-
                 return <li key={item.id}>{itemDetails}</li>;
               })}
             </ul>
@@ -225,7 +218,6 @@ const AcceptByLaundry = () => {
               {selectedOrder.special_notes || "None"}
             </p>
 
-            {/* New section for Hotel Details */}
             <h3>Hotel Details</h3>
             <p>
               <strong>Hotel Name:</strong>{" "}
@@ -252,19 +244,22 @@ const AcceptByLaundry = () => {
             <div className="amount-div">
               <label htmlFor="amount">Total Amount (LKR) :</label>
               <input
-                type="number"
+                type="text" // Change to text to control input format
                 id="amount"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="Enter amount"
+                onChange={(e) => {
+                  const value = e.target.value.replace(/[^\d]/g, ""); // Allow only numbers
+                  setAmount(value);
+                }}
+                placeholder="Enter amount - min 150 LKR"
               />
             </div>
 
             {/* Buttons for Confirm and Decline */}
             <button
               onClick={handleConfirm}
-              className={amount ? "accept-button" : "inactive-button"}
-              disabled={!amount}
+              className={isValidAmount(amount) ? "accept-button" : "inactive-button"}
+              disabled={!isValidAmount(amount)} // Disable if amount is invalid
             >
               Confirm
             </button>
