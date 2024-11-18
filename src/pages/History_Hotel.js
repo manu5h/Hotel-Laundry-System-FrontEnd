@@ -11,9 +11,10 @@ const History_hotel = () => {
   const storedToken = localStorage.getItem("token");
   const [completedOrders, setCompletedOrders] = useState([]);
   const [laundryMap, setLaundryMap] = useState({});
-  const [expandedOrders, setExpandedOrders] = useState([]); 
+  const [expandedOrders, setExpandedOrders] = useState([]);
   const [reviewingOrderId, setReviewingOrderId] = useState(null);
-  const [reviewValue, setReviewValue] = useState(0); 
+  const [reviewValue, setReviewValue] = useState(0);
+  const [feedbackText, setFeedbackText] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -77,7 +78,14 @@ const History_hotel = () => {
 
   const handleAddReview = async (orderId) => {
     if (reviewValue < 1 || reviewValue > 5) {
+      alert("Please select a star rating between 1 and 5.");
       setError("Please provide a review between 1 and 5.");
+      return;
+    }
+
+    if (!feedbackText.trim()) {
+      alert("Please write some feedback before submitting.");
+      setError("Please provide written feedback.");
       return;
     }
 
@@ -92,10 +100,12 @@ const History_hotel = () => {
         },
         body: JSON.stringify({
           review: reviewValue,
+          feedback: feedbackText,
         }),
       });
 
       if (response.status === 201) {
+        alert("Thank you for your feedback!");
         window.location.reload();
       } else {
         throw new Error("Failed to add review");
@@ -106,7 +116,6 @@ const History_hotel = () => {
     }
   };
 
-  // Toggle for showing/hiding order items
   const toggleExpandOrderItems = (orderId) => {
     setExpandedOrders((prevExpandedOrders) =>
       prevExpandedOrders.includes(orderId)
@@ -115,7 +124,6 @@ const History_hotel = () => {
     );
   };
 
-  // Star rating display
   const renderStars = (rating, onClick, showLabels = true) => {
     const starLabels = ["Poor", "Fair", "Good", "Very Good", "Excellent"];
     return (
@@ -133,7 +141,7 @@ const History_hotel = () => {
               key={i + 1}
               onClick={() => onClick && onClick(i + 1)}
               className="star-icon"
-              style={{ marginRight: "15px" }} // Adjust spacing as needed
+              style={{ marginRight: "15px" }}
             >
               <FontAwesomeIcon
                 icon={i + 1 <= rating ? faStarFilled : faStarOutline}
@@ -177,7 +185,7 @@ const History_hotel = () => {
                       {new Date(order.orderCompletedDateTime).toLocaleString()}
                     </td>
                     <td>{laundryMap[order.laundry_id] || "Unknown Laundry"}</td>
-                    <td>{order.price+" LKR" || "Not set"}</td>
+                    <td>{order.price + " LKR" || "Not set"}</td>
                     <td
                       onClick={() => toggleExpandOrderItems(order.id)}
                       style={{ fontWeight: "bold" }}
@@ -188,8 +196,7 @@ const History_hotel = () => {
                     </td>
                     <td style={{ fontWeight: "bold" }}>
                       {order.review ? (
-                        // If review is already submitted, show stars without labels
-                        <div>{renderStars(order.review, null, false)}</div> // Show stars only
+                        <div>{renderStars(order.review, null, false)}</div>
                       ) : (
                         <button
                           className="review-btn"
@@ -201,7 +208,6 @@ const History_hotel = () => {
                     </td>
                   </tr>
 
-                  {/* Expanded Order Items */}
                   {expandedOrders.includes(order.id) && (
                     <tr>
                       <td colSpan="7">
@@ -222,14 +228,20 @@ const History_hotel = () => {
                     </tr>
                   )}
 
-                  {/* Review Section */}
                   {reviewingOrderId === order.id && (
                     <tr>
                       <td colSpan="7" className="feedback-row">
                         <div className="feedback-section">
                           <h4>Share your feedback for this laundry service</h4>
-                          {renderStars(reviewValue, setReviewValue)}{" "}
-                          {/* Show star selection for new feedback */}
+                          {renderStars(reviewValue, setReviewValue)}
+                          <textarea
+                            className="feedback-textarea"
+                            placeholder="Write your feedback here..."
+                            maxLength={250}
+                            style={{ resize: "none", width: "400px", height: "80px", fontFamily: "sans-serif", padding: "10px" }}
+                            value={feedbackText}
+                            onChange={(e) => setFeedbackText(e.target.value)}
+                          ></textarea>
                           <div>
                             <button
                               className="submit-btn"

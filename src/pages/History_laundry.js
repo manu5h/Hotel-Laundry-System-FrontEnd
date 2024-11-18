@@ -37,7 +37,6 @@ const History_laundry = () => {
           }
         );
 
-        if (response.status !== 200) throw new Error("Failed to fetch orders");
 
         const data = await response.json();
         const filteredOrders = data.orders.filter(
@@ -55,7 +54,6 @@ const History_laundry = () => {
         setHotelOrderCounts(hotelCounts);
       } catch (error) {
         console.error("Error fetching completed orders:", error);
-        setError("Failed to fetch completed orders.");
       }
     };
 
@@ -79,7 +77,6 @@ const History_laundry = () => {
         setLaundryList(data.laundries);
       } catch (error) {
         console.error("Error fetching laundry details:", error);
-        setError("Failed to fetch laundry details.");
       }
     };
     getLaundryDetails();
@@ -174,12 +171,13 @@ const History_laundry = () => {
                 <th>Price</th>
                 <th>Items</th>
                 <th>Review</th>
+                <th>Feedback</th>
               </tr>
             </thead>
             <tbody>
               {completedOrders.map((order) => (
                 <React.Fragment key={order.id}>
-                  <tr style={{ cursor: "pointer" }}>
+                  <tr>
                     <td>{order.id}</td>
                     <td>{new Date(order.created_time).toLocaleString()}</td>
                     <td>
@@ -191,7 +189,7 @@ const History_laundry = () => {
                     <td>{order.price + " LKR" || "Not set"}</td>
                     <td
                       onClick={() => toggleExpandOrderItems(order.id)}
-                      style={{ fontWeight: "bold" }}
+                      style={{ fontWeight: "bold" ,  cursor: "pointer"}}
                     >
                       {expandedOrders.includes(order.id)
                         ? "Hide Items"
@@ -204,6 +202,7 @@ const History_laundry = () => {
                         <p>N/A</p>
                       )}
                     </td>
+                    <td style={{maxWidth: "300px"}}>{order.feedback || "Not given"}</td>
                   </tr>
                   {expandedOrders.includes(order.id) && (
                     <tr>

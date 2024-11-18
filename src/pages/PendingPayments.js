@@ -27,6 +27,7 @@ const PendingPayment = () => {
 
     // Save order ID in localStorage before making the fetch request
     localStorage.setItem("orderID", orderId);
+    localStorage.setItem("paymentAmount", price);
 
     try {
       // Create a checkout session
@@ -119,10 +120,6 @@ const PendingPayment = () => {
   const handleAccept = async () => {
     if (!selectedOrder) return;
 
-    const confirmed = window.confirm(
-      "Confirm payment completed to accept this order."
-    );
-    if (!confirmed) return;
 
     try {
       await handlePaymentAndAccept(selectedOrder.id, selectedOrder.price);
